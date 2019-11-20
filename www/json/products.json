@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "slug": "produkter-badanka",
+    "name": "Badanka",
+    "price": 99,
+    "image": "/images/badanka.jpg",
+    "description": "En fin badanka som dubblar som superhjälte. Kläm på den och den kvackar!"
+  },
+  {
+    "id": 2,
+    "slug": "produkter-ryggborste",
+    "name": "Ryggborste",
+    "price": 149,
+    "image": "/images/ryggborste.jpg",
+    "description": "En genuin ryggborste. Ergonomisk och bra på att ta bort döda hudceller."
+  },
+  {
+    "id": 3,
+    "slug": "produkter-tval",
+    "name": "Tvål",
+    "price": 34,
+    "image": "/images/tval.jpg",
+    "description": "En ph-neutral tvål, milt parfymerad med citrusdoft."
+  }
+]
