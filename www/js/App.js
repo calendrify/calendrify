@@ -43,7 +43,7 @@ class App {
     $('header nav a').removeClass('active');
     $(`header nav a[href="#${hashFirstPart}"]`).addClass('active');
     // Render content
-    pageToShow.render();
+    pageToShow.render();  
   }
 
   // An async function is allowed to await things
