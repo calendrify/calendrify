@@ -1,6 +1,4 @@
 class Product {
-
-
   /*
     I am a Product.
 
@@ -23,9 +21,9 @@ class Product {
     // this a delegated event handler:
     // * when you click on the body
     // * if you clicked inside something matching the css-selector
-    //   #buy-button-myId 
+    //   #buy-button-myId
     // * then run the anonymous arrow function...
-    $('body').on('click', `#buy-button-${this.id}`, e => {
+    $("body").on("click", `#buy-button-${this.id}`, e => {
       // e is the event object
       // it has a preventDefault method
       // when you call that method it prevents the browser
@@ -42,7 +40,7 @@ class Product {
   render() {
     // This is how I render myself on a product-detail page
     // there it only me
-    $('main').html(/*html*/`
+    $("main").html(/*html*/ `
      <section class="row">
         <div class="col">
           <h1>${this.name}</h1>
@@ -64,7 +62,7 @@ class Product {
   renderInList() {
     // This is how I render myself in a list of products
     // (this method is called from a ProductList)
-    return `
+    return /*html*/ `
       <div class="col-12 col-md-6 col-lg-4 mt-5">
         <a href="#${this.slug}">
           <h4>${this.name} ${this.price} kr</h4>
@@ -72,7 +70,6 @@ class Product {
           <img class="img-fluid border border-primary rounded" src="${this.image}">
         </a>
       </div>
-    `
+    `;
   }
-
 }
