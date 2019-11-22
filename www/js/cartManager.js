@@ -1,13 +1,13 @@
 class CartItem {
-  constructor(desc, units, ppu, discounted) {
+  constructor(pId, desc, units, ppu, discounted, wpu) {
+    this.productId = pId;
     this.description = desc;
     this.units = units;
     this.pricePerUnit = ppu;
     this.discouted = discounted;
-    this.id = CartItem.uniqueId++;
+    this.weightPerUnit = wpu;
+    this.cartId = CartItem.uniqueId++;
     store.uniqueId = CartItem.uniqueId;
-    // localStorage.setItem("uniqueId", CartItem.uniqueId);
-    console.log("Id: ", this.id);
   }
 }
 
@@ -19,10 +19,18 @@ class CartManager {
 
   /**
    * Adds a cart item to the cart.
-   * @param {*} item CartItem to store.
+   * @param {*} item A Product-obejct to store.
    */
-  add(item) {
-    this.items.push(item);
+  add(item, units) {
+    let cItem = new CartItem(
+      item.id,
+      item.description,
+      units,
+      item.price,
+      item.discount,
+      item.weightPerUnit
+    );
+    this.items.push(cItem);
     this.save();
   }
 

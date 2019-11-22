@@ -27,6 +27,12 @@ class App {
     $(window).on("hashchange", () => this.changeRoute());
     // Load the products from JSON
     this.loadProducts();
+
+    // this.cart.add(new CartItem("Test!", 2, 25, false));
+    // this.cart.add(new CartItem("Test2!", 5, 5, true));
+    // this.cart.add(new CartItem("Test3!", 13, 5, true));
+    // console.log("Antal varor i korgen: ", this.cart.getNumberOfItems());
+    // this.cart.clearCart();
   }
 
   changeRoute() {
