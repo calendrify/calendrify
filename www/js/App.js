@@ -14,25 +14,25 @@ class App {
     // This are some routes:
     // * the keys are url hashes
     // * the values are instances of classes
+    // A shop should always have a cart and a cart manager
+    this.cartManager = new CartManager();
+    this.cart = new Cart(this.cartManager);
+
     // (we will add more routes when we have read
     //  the products from JSON)
     this.routes = {
       "": new StartPage(),
       omoss: new AboutUs(),
-      page404: new Page404()
+      page404: new Page404(),
+      cart: this.cart
     };
-    // A shop should always have a cart
-    this.cart = new CartManager();
     // Listen to hash changes - rerender...
     $(window).on("hashchange", () => this.changeRoute());
     // Load the products from JSON
     this.loadProducts();
 
-    // this.cart.add(new CartItem("Test!", 2, 25, false));
-    // this.cart.add(new CartItem("Test2!", 5, 5, true));
-    // this.cart.add(new CartItem("Test3!", 13, 5, true));
-    // console.log("Antal varor i korgen: ", this.cart.getNumberOfItems());
-    // this.cart.clearCart();
+    this.cart.renderInDropDown();
+    this.cart.updateArticleCount();
   }
 
   changeRoute() {
@@ -62,7 +62,7 @@ class App {
     this.products = [];
     // Loop through the JSON data and create Products
     for (let productData of productsData) {
-      let product = new Product(productData, this.cart);
+      let product = new Product(productData, this.cartManager, this.cart);
       this.products.push(product);
       this.routes[product.slug] = product;
     }

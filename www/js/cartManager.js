@@ -1,16 +1,3 @@
-class CartItem {
-  constructor(pId, desc, units, ppu, discounted, wpu) {
-    this.productId = pId;
-    this.description = desc;
-    this.units = units;
-    this.pricePerUnit = ppu;
-    this.discouted = discounted;
-    this.weightPerUnit = wpu;
-    this.cartId = CartItem.uniqueId++;
-    store.uniqueId = CartItem.uniqueId;
-  }
-}
-
 class CartManager {
   constructor() {
     this.items = [];
@@ -19,16 +6,18 @@ class CartManager {
 
   /**
    * Adds a cart item to the cart.
-   * @param {*} item A Product-obejct to store.
+   * @param {*} item A Product-object to store.
    */
   add(item, units) {
     let cItem = new CartItem(
       item.id,
+      item.name,
       item.description,
       units,
       item.price,
       item.discount,
-      item.weightPerUnit
+      item.weight,
+      item.image
     );
     this.items.push(cItem);
     this.save();
@@ -41,7 +30,22 @@ class CartManager {
 
   update() {
     const list = store.cartItems;
-    this.items = list == undefined ? [] : JSON.parse(list);
+    this.items =
+      list == undefined
+        ? []
+        : JSON.parse(list).map(
+            item =>
+              new CartItem(
+                item.productId,
+                item.name,
+                item.description,
+                item.units,
+                item.pricePerUnit,
+                item.discount,
+                item.weightPerUnit,
+                item.url
+              )
+          );
     // this.items = list === null ? [] : JSON.parse(list);
   }
 
@@ -80,6 +84,11 @@ class CartManager {
     let itemCount = 0;
     for (let item of this.items) itemCount += item.units;
     return itemCount;
+  }
+
+  getItems() {
+    this.update();
+    return this.items;
   }
 }
 
