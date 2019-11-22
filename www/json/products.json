@@ -1,26 +1,152 @@
 [
   {
     "id": 1,
-    "slug": "produkter-badanka",
-    "name": "Badanka",
-    "price": 99,
-    "image": "/images/badanka.jpg",
-    "description": "En fin badanka som dubblar som superhjälte. Kläm på den och den kvackar!"
+    "slug": "produkter-babblarna",
+    "name": "Babblarna",
+    "price": 159,
+    "disount": true,
+    "weight": 0.5,
+    "image": "/images/babblarnacalender.jpg",
+    "description": "Är dina länders frukter trött på Teletubbies? Här får du en perfekt kalender för de allra minsta."
   },
   {
     "id": 2,
-    "slug": "produkter-ryggborste",
-    "name": "Ryggborste",
-    "price": 149,
-    "image": "/images/ryggborste.jpg",
-    "description": "En genuin ryggborste. Ergonomisk och bra på att ta bort döda hudceller."
+    "slug": "produkter-badbomb",
+    "name": "Badbomb",
+    "price": 189,
+    "disount": false,
+    "weight": 2.5,
+    "image": "/images/badbombcalender.jpg",
+    "description": "Lukta gott och samtidigt ha kul i badet. Ny doft varje dag - aldrig ha du varit så ren!"
   },
   {
     "id": 3,
-    "slug": "produkter-tval",
-    "name": "Tvål",
-    "price": 34,
-    "image": "/images/tval.jpg",
-    "description": "En ph-neutral tvål, milt parfymerad med citrusdoft."
+    "slug": "produkter-chilikalender",
+    "name": "Chilikalender",
+    "price": 129,
+    "disount": true,
+    "weight": 1,
+    "image": "/images/chilicalender.jpg",
+    "description": "Perfekt för den starkaste! Garanterad halsbränna varje dag."
+  },
+  {
+    "id": 4,
+    "slug": "produkter-kaffekalender",
+    "name": "Kaffekalender",
+    "price": 399,
+    "disount": false,
+    "weight": 2.5,
+    "image": "/images/coffeecalender.jpg",
+    "description": "För den inbitna koeffeinisten eller dig som har svårt att vakna på morgonen - en ny fräsch kopp kaffe vare dag"
+  },
+  {
+    "id": 5,
+    "slug": "produkter-pusselkalender",
+    "name": "Pusselkalender",
+    "price": 159,
+    "disount": false,
+    "weight": 1.2,
+    "image": "/images/pusselcalender.jpg",
+    "description": "I detta 220-bitarspussel får du fem bitar varje dag. Bra för att träna ditt tålamod. Passar både barn och vuxna."
+  },
+  {
+    "id": 6,
+    "slug": "produkter-skagg",
+    "name": "Skäggkalender",
+    "price": 599,
+    "disount": false,
+    "weight": 4.3,
+    "image": "/images/skäggkalender.jpg",
+    "description": "Väx ett perfekt skägg till julafton - var så god!"
+  },
+  {
+    "id": 7,
+    "slug": "produkter-smink",
+    "name": "Sminkkalender",
+    "price": 399,
+    "disount": true,
+    "weight": 2.5,
+    "image": "/images/sminkkalender.jpg",
+    "description": "Känner du dig ful som en skata? Här får du allt du behöver för en make-over."
+  },
+  {
+    "id": 8,
+    "slug": "produkter-strump",
+    "name": "Strumpkalender",
+    "price": 459,
+    "disount": true,
+    "weight": 2.0,
+    "image": "/images/strumpkalender1.jpg",
+    "description": "Är du för trött för att tvätta? Här du du ett nytt par strumpor varje dag!"
+  },
+  {
+    "id": 9,
+    "slug": "produkter-tekalender",
+    "name": "Tekalender",
+    "price": 299,
+    "disount": false,
+    "weight": 1.3,
+    "image": "/images/tecalender.jpg",
+    "description": "Upptäck världens smaker med en rykande het kopp te varje dag."
+  },
+  {
+    "id": 10,
+    "slug": "produkter-verktygskalender",
+    "name": "Verktygskalender",
+    "price": 959,
+    "disount": true,
+    "weight": 5,
+    "image": "/images/verktygscalender.jpg",
+    "description": "Ett måste för den händige och hens hang-around"
+  },
+  {
+    "id": 11,
+    "slug": "produkter-vingummi",
+    "name": "Vingummikalender",
+    "price": 99,
+    "disount": false,
+    "weight": 1,
+    "image": "/images/vingummicalender.jpg",
+    "description": "Behöver man säga mer - VINGUMMI!!! En klassiker..."
+  },
+  {
+    "id": 12,
+    "slug": "produkter-nagellack",
+    "name": "Nagellackskalender",
+    "price": 199,
+    "disount": true,
+    "weight": 1.5,
+    "image": "/images/nagellackskalender.jpg",
+    "description": "Svårt att bestämma färg på morgonen? I denna kalender får du ett unikt nagellack varje dag."
+  },
+  {
+    "id": 13,
+    "slug": "produkter-beer",
+    "name": "Ölkalender",
+    "price": 699,
+    "disount": true,
+    "weight": 10,
+    "image": "/images/Ölkalender.jpg",
+    "description": "Hitta din favoritöl bland dessa 24 - Skål!"
+  },
+  {
+    "id": 14,
+    "slug": "produkter-bilkalender",
+    "name": "Bilkalender",
+    "price": 159,
+    "disount": false,
+    "weight": 2.5,
+    "image": "/images/bilcalender.jpg",
+    "description": "För pojken i oss alla, en ny kvalitetsleksaksbil varje dag."
+  },
+  {
+    "id": 15,
+    "slug": "produkter-whiskey",
+    "name": "Whiskeykalender",
+    "price": 1199,
+    "disount": true,
+    "weight": 25,
+    "image": "/images/whisky-advent-calendar-2019.png",
+    "description": "För finsmakaren."
   }
 ]
