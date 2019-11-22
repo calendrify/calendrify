@@ -33,7 +33,8 @@ class Product {
       e.preventDefault();
       // this.cart is an instance of Cart
       // add me to that cart
-      this.cart.add(this);
+      this.animate();
+      this.cart.add(this, 1);
     });
   }
 
@@ -72,4 +73,57 @@ class Product {
       </div>
     `;
   }
+  animate(){
+    let getProdImgSrc = "#img-" + this.id;
+    let cart = $(".fas.fa-shopping-cart");
+    let animateImg = $(getProdImgSrc);
+    if (animateImg) {
+      let animateImgClone = animateImg
+        .clone()
+        .offset({
+          top: animateImg.offset().top,
+          left: animateImg.offset().left
+        })
+        .css({
+          opacity: "0.5",
+          position: "absolute",
+          height: "150px",
+          width: "150px",
+          "z-index": "100"
+        })
+        .appendTo($("body"))
+        .animate(
+          {
+            top: cart.offset().top + 10,
+            left: cart.offset().left + 10,
+            width: 50,
+            height: 75
+          },
+          1000,
+          "easeInOutExpo"
+        );
+
+      setTimeout(function() {
+        cart.effect(
+          "shake",
+          {
+            times: 2,
+            distance: 10
+          },
+          200
+        );
+      }, 1500);
+
+      animateImgClone.animate(
+        {
+          width: 0,
+          height: 0
+        },
+        function() {
+          $(this).detach();
+        }
+      );
+    }
+  }
+
 }
