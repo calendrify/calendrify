@@ -53,7 +53,7 @@ class Product {
           <button id="buy-button-${this.id}" class="btn btn-primary my-2">Köp</button>
         </div>
         <div class="col-12 col-lg-3">
-          <img class="img-fluid border border-primary rounded" src="${this.image}">
+          <img class="img-fluid border border-primary rounded" id="img-${this.id}" src="${this.image}">
         </div>
       </section>
     `);
@@ -64,10 +64,10 @@ class Product {
     // (this method is called from a ProductList)
     return /*html*/ `
       <div class="col-12 col-md-6 col-lg-4 mt-5">
-        <a href="#${this.slug}">
+        <a href="#${this.slug}" class="item">
           <h4>${this.name} ${this.price} kr</h4>
           <button id="buy-button-${this.id}" class="btn btn-primary my-2">Köp</button>
-          <img class="img-fluid border border-primary rounded" src="${this.image}">
+          <img class="img-fluid border border-primary rounded prod-img" id="img-${this.id}" src="${this.image}">
         </a>
       </div>
     `;
