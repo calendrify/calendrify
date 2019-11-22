@@ -9,6 +9,9 @@ ul{
     position:absolute;
     -webkit-transition: 0.5s ease;
 }
+li{
+    -webkit-transition: 0.5s ease;
+}
 
 li:nth-of-type(1):hover ~ .toAnimate{
     left: 6px;
