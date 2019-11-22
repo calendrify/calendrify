@@ -1,5 +1,4 @@
 class App {
-
   /*
   
     I am an App.
@@ -18,32 +17,38 @@ class App {
     // (we will add more routes when we have read
     //  the products from JSON)
     this.routes = {
-      '': new StartPage(),
-      'omoss': new AboutUs(),
-      'page404': new Page404()
+      "": new StartPage(),
+      omoss: new AboutUs(),
+      page404: new Page404()
     };
     // A shop should always have a cart
-    this.cart = new Cart();
+    this.cart = new CartManager();
     // Listen to hash changes - rerender...
-    $(window).on('hashchange', () => this.changeRoute());
+    $(window).on("hashchange", () => this.changeRoute());
     // Load the products from JSON
     this.loadProducts();
+
+    // this.cart.add(new CartItem("Test!", 2, 25, false));
+    // this.cart.add(new CartItem("Test2!", 5, 5, true));
+    // this.cart.add(new CartItem("Test3!", 13, 5, true));
+    // console.log("Antal varor i korgen: ", this.cart.getNumberOfItems());
+    // this.cart.clearCart();
   }
 
   changeRoute() {
     // Get the hash from the url - remove the #-sign
-    let hash = location.hash.replace(/#/g, '');
+    let hash = location.hash.replace(/#/g, "");
     // The first part of the hash is everything before a '-' character
-    let hashFirstPart = hash.split('-')[0];
+    let hashFirstPart = hash.split("-")[0];
     // Look up the "page to show" - the instance to call render on
     // if we do not find any page set the page to 'page404'
     let pageToShow = this.routes[hash] || this.routes.page404;
     // Make the correct menu item active
     // (the css selector finds a-tags with matching hrefs)
-    $('header nav a').removeClass('active');
-    $(`header nav a[href="#${hashFirstPart}"]`).addClass('active');
+    $("header nav a").removeClass("active");
+    $(`header nav a[href="#${hashFirstPart}"]`).addClass("active");
     // Render content
-    pageToShow.render();  
+    pageToShow.render();
   }
 
   // An async function is allowed to await things
@@ -51,7 +56,7 @@ class App {
   // await "pauses" until we have have a result
   async loadProducts() {
     // Load the products from JSON
-    let productsData = await $.getJSON('/json/products.json');
+    let productsData = await $.getJSON("/json/products.json");
     // We will convert the raw JSON data to instances of Product
     // and store them in this.products
     this.products = [];
@@ -68,5 +73,4 @@ class App {
     // the correct page on initial page load..
     this.changeRoute();
   }
-
 }

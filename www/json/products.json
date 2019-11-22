@@ -2,7 +2,7 @@
   {
     "id": 1,
     "slug": "produkter-babblarna",
-    "name": "Babblarna",
+    "name": "Babblarna-kalender",
     "price": 159,
     "disount": true,
     "weight": 0.5,
@@ -12,7 +12,7 @@
   {
     "id": 2,
     "slug": "produkter-badbomb",
-    "name": "Badbomb",
+    "name": "Badbombskalender",
     "price": 189,
     "disount": false,
     "weight": 2.5,
