@@ -85,24 +85,23 @@ class Product {
           left: animateImg.offset().left
         })
         .css({
-          opacity: "0.5",
-          position: "absolute",
-          height: "150px",
-          width: "150px",
-          "z-index": "100"
+          'opacity': "0.5",
+          'position': "absolute",
+          'height': "100px",
+          'width': "150px",
+          'z-index': "100",
         })
         .appendTo($("body"))
         .animate(
           {
             top: cart.offset().top + 10,
-            left: cart.offset().left + 10,
-            width: 50,
-            height: 75
+            left: cart.offset().left,
+            width: 30,
+            height: 20
           },
           1000,
           "easeInOutExpo"
         );
-
       setTimeout(function() {
         cart.effect(
           "shake",
