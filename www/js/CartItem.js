@@ -1,29 +1,36 @@
 class CartItem {
-  constructor(pId, name, desc, units, ppu, discounted, wpu, url) {
+  constructor(pId, units) {
+    // constructor(pId, name, desc, units, ppu, discounted, wpu, url) {
     this.productId = pId;
-    this.name = name;
-    this.description = desc;
     this.units = units;
-    this.pricePerUnit = ppu;
-    this.discouted = discounted;
-    this.weightPerUnit = wpu;
-    this.url = url;
+    // this.name = name;
+    // this.description = desc;
+    // this.pricePerUnit = ppu;
+    // this.discouted = discounted;
+    // this.weightPerUnit = wpu;
+    // this.url = url;
     this.cartId = CartItem.uniqueId++;
     store.uniqueId = CartItem.uniqueId;
-  }
+  } // constructor
 
-  renderInDropDown() {
+  getProduct(products) {
+    return products.find(item => item.id == this.productId);
+  } // getProduct
+
+  renderInDropDown(products) {
+    const item = this.getProduct(products);
+
     return /*html*/ `
     <li>
-      <span class="item">
+      <span class="item" data-toggle="tooltip" title="${item.description}">
         <span class="item-left">
           <img
-            src=${this.url}
+            src=${item.image}
             alt="" width="50em"
           />
           <span class="item-info">
-            <span>${this.name}</span>
-            <span>pris: ${this.pricePerUnit}</span>
+            <span>${item.name}</span>
+            <span>pris: ${item.price}</span>
           </span>
         </span>
         <span class="item-right">
@@ -31,16 +38,18 @@ class CartItem {
         </span>
       </span>
     </li>`;
-  }
+  } // renderInDropDown
 
-  render() {
+  render(products) {
+    const item = this.getProduct(products);
+
     return /*html*/ `
         <section class="row align-items-center" id=${this.uniqueId}>
           <section class="col-1">
             <i class="far fa-trash-alt btnDelete"></i>
           </section>
           <section class="col-8 col-md-7 align-items-center">
-            <p id="template-description">${this.description}</p>
+            <p>${item.description}</p>
           </section>
           <section class="col-3 offset-2 col-md-2 offset-md-0 align-items-center">
             <span>
@@ -55,13 +64,13 @@ class CartItem {
           </section>
 
           <section class="col-1 align-items-center">
-            <p>${this.pricePerUnit}</p>
+            <p>${item.price}</p>
           </section>
           <section class="col-4 col-md-1 text-right">
-            <p class="font-weight-bold" id="template-totPrice">
-              ${this.pricePerUnit * this.units}
+            <p class="font-weight-bold">
+              ${item.price * this.units}
             </p>
           </section>
-        </section>;`;
-  }
-}
+        </section>`;
+  } // render
+} // CartItem

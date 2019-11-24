@@ -2,7 +2,7 @@
   {
     "id": 1,
     "slug": "produkter-babblarna",
-    "name": "Babblarna-kalender",
+    "name": "Babblarnakalender",
     "price": 159,
     "disount": true,
     "weight": 0.5,
@@ -146,7 +146,7 @@
     "price": 1199,
     "disount": true,
     "weight": 25,
-    "image": "/images/whisky-advent-calendar-2019.png",
+    "image": "/images/whisky-advent-calendar-2019.jpg",
     "description": "För finsmakaren."
   }
 ]

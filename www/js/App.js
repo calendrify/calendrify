@@ -14,9 +14,8 @@ class App {
     // This are some routes:
     // * the keys are url hashes
     // * the values are instances of classes
-    // A shop should always have a cart and a cart manager
+    // A shop should always a cart manager
     this.cartManager = new CartManager();
-    this.cart = new Cart(this.cartManager);
 
     // (we will add more routes when we have read
     //  the products from JSON)
@@ -24,16 +23,17 @@ class App {
       "": new StartPage(),
       omoss: new AboutUs(),
       page404: new Page404(),
-      cart: this.cart
+      cart: null // Make space for the cart, but we will create the object and update the table in loadProcucts
     };
+
     // Listen to hash changes - rerender...
     $(window).on("hashchange", () => this.changeRoute());
     // Load the products from JSON
     this.loadProducts();
 
-    this.cart.renderInDropDown();
-    this.cart.updateArticleCount();
-  }
+    // Aktivera tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+  } // constructor
 
   changeRoute() {
     // Get the hash from the url - remove the #-sign
@@ -65,12 +65,23 @@ class App {
       let product = new Product(productData, this.cartManager, this.cart);
       this.products.push(product);
       this.routes[product.slug] = product;
-    }
+    } // for...
+
+    // Create the cart. It needs a a reference to the products-list,
+    // so it can't be created before the list is created in loadProducts
+    // Update the carts drop down menu and item count in the  nav-bar
+    this.cart = new Cart(this.cartManager, this.products);
+    this.cart.renderInDropDown();
+    this.cart.updateArticleCount();
+
+    // Update the cart in the routing table
+    this.routes["cart"] = this.cart;
+
     // Make a new product list with all of our products
     // and add it to our routes
     this.routes.produkter = new ProductList(this.products);
     // Now we are ready to call changeRoute and display
     // the correct page on initial page load..
     this.changeRoute();
-  }
-}
+  } // loadProducts
+} // class App
