@@ -9,7 +9,7 @@ class ProductList {
   }
 
   render() {
-    $("main").html(`
+    $("main").html(/*html*/`
       <section class="row">
         <div class="col">
           <h1>Våra kalendrar</h1>

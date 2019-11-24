@@ -38,6 +38,8 @@ class Product {
       this.cartManager.add(this, 1);
       this.cart.updateArticleCount();
       this.cart.renderInDropDown();
+      this.animate();
+      // this.cart.add(this, 1);
     });
   }
 
@@ -61,19 +63,71 @@ class Product {
         </div>
       </section>
     `);
-  }
+  } // render
 
   renderInList() {
     // This is how I render myself in a list of products
     // (this method is called from a ProductList)
     return /*html*/ `
       <div class="col-12 col-md-6 col-lg-4 mt-5">
-        <a href="#${this.slug}" class="item">
+        <a href="#${this.slug}" class="item" data-toggle="tooltip" title="${this.description}" >
           <h4>${this.name} ${this.price} kr</h4>
           <button id="buy-button-${this.id}" class="btn btn-primary my-2">Köp</button>
           <img class="img-fluid border border-primary rounded prod-img" id="img-${this.id}" src="${this.image}">
         </a>
       </div>
     `;
-  }
+  } // renderInList
+
+  animate() {
+    let getProdImgSrc = "#img-" + this.id;
+    let cart = $(".fas.fa-shopping-cart");
+    let animateImg = $(getProdImgSrc);
+    if (animateImg) {
+      let animateImgClone = animateImg
+        .clone()
+        .offset({
+          top: animateImg.offset().top,
+          left: animateImg.offset().left
+        })
+        .css({
+          opacity: "0.5",
+          position: "absolute",
+          height: "100px",
+          width: "150px",
+          "z-index": "100"
+        })
+        .appendTo($("body"))
+        .animate(
+          {
+            top: cart.offset().top + 10,
+            left: cart.offset().left,
+            width: 30,
+            height: 20
+          },
+          1000,
+          "easeInOutExpo"
+        );
+      setTimeout(function() {
+        cart.effect(
+          "shake",
+          {
+            times: 2,
+            distance: 10
+          },
+          200
+        );
+      }, 1500);
+
+      animateImgClone.animate(
+        {
+          width: 0,
+          height: 0
+        },
+        function() {
+          $(this).detach();
+        }
+      );
+    } // if animateImg...
+  } // animate
 }
