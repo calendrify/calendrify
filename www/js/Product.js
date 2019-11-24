@@ -8,11 +8,12 @@ class Product {
     clicks my buy-button.
   */
 
-  constructor(data, cart) {
+  constructor(data, cartManager, cart) {
     // Object.assign is used to copy all properties from data to me
     Object.assign(this, data);
     // I also know who is my cart (the App sent me this info)
     this.cart = cart;
+    this.cartManager = cartManager;
     // I add listeners to my buy-button(s)
     this.addBuyButtonListener();
   }
@@ -33,8 +34,12 @@ class Product {
       e.preventDefault();
       // this.cart is an instance of Cart
       // add me to that cart
+
+      this.cartManager.add(this, 1);
+      this.cart.updateArticleCount();
+      this.cart.renderInDropDown();
       this.animate();
-      this.cart.add(this, 1);
+      // this.cart.add(this, 1);
     });
   }
 
@@ -58,22 +63,23 @@ class Product {
         </div>
       </section>
     `);
-  }
+  } // render
 
   renderInList() {
     // This is how I render myself in a list of products
     // (this method is called from a ProductList)
     return /*html*/ `
       <div class="col-12 col-md-6 col-lg-4 mt-5">
-        <a href="#${this.slug}" class="item">
+        <a href="#${this.slug}" class="item" data-toggle="tooltip" title="${this.description}" >
           <h4>${this.name} ${this.price} kr</h4>
           <button id="buy-button-${this.id}" class="btn btn-primary my-2">Köp</button>
           <img class="img-fluid border border-primary rounded prod-img" id="img-${this.id}" src="${this.image}">
         </a>
       </div>
     `;
-  }
-  animate(){
+  } // renderInList
+
+  animate() {
     let getProdImgSrc = "#img-" + this.id;
     let cart = $(".fas.fa-shopping-cart");
     let animateImg = $(getProdImgSrc);
@@ -85,11 +91,11 @@ class Product {
           left: animateImg.offset().left
         })
         .css({
-          'opacity': "0.5",
-          'position': "absolute",
-          'height': "100px",
-          'width': "150px",
-          'z-index': "100",
+          opacity: "0.5",
+          position: "absolute",
+          height: "100px",
+          width: "150px",
+          "z-index": "100"
         })
         .appendTo($("body"))
         .animate(
@@ -122,7 +128,6 @@ class Product {
           $(this).detach();
         }
       );
-    }
-  }
-
+    } // if animateImg...
+  } // animate
 }

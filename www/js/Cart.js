@@ -1,22 +1,41 @@
 class Cart {
+  constructor(cartManager, products) {
+    // Save a reference to the product list and cart manager
+    this.products = products;
+    this.cartManager = cartManager;
+  } // constructor
 
-  /*
+  render() {
+    // Render all items in the cart to a web page
+    $("main").html(`
+      <section class="row">
+        <div class="col">
+          <h1>Kundvagn</h1>
+        </div>
+      </section>
+      <section class="row">
+        <!-- Notice the "loop" using the array map method -->
+        ${this.cartManager.items
+          .map(item => item.render(this.products))
+          .join("")}
+      </section>
+    `);
+  } // render
 
-    I am a Cart.
+  renderInDropDown() {
+    if (this.cartManager.items.length === 0) {
+      $("#cart-menu").html("<div>Kundvagnen är tom!</div>");
+    } else {
+      $("#cart-menu").html(
+        this.cartManager.items
+          .map(item => item.renderInDropDown(this.products))
+          .join("") +
+          '<li><a class="text-center" href="#cart">Gå till kundvagn</a></li>'
+      );
+    } // else
+  } // renderInDropDown
 
-    I want to be a shopping-cart
-    but so far I am really stupid... 😢
-  */
-
-  add(product) {
-    // We are doing a json stringify of the product
-    // minus the cart property of a product
-    // (which is just a reference to the cart)
-    //
-    // We don't need a JSON.stringify when we have
-    // intelligent methods... This i purely to
-    // show what product that is intended to be added...
-    
-  }
-
-}
+  updateArticleCount() {
+    $("#articles-in-cart").text(" " + this.cartManager.getNumberOfItems());
+  } // updateArticleCount
+} // Cart
