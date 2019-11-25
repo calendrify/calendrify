@@ -14,7 +14,9 @@ class CartManager {
       item.id,
       // item.name,
       // item.description,
-      units
+      units,
+      false,
+      0
       // item.price,
       // item.discount,
       // item.weight,
@@ -47,7 +49,9 @@ class CartManager {
                 item.productId,
                 // item.name,
                 // item.description,
-                item.units
+                item.units,
+                true,
+                item.cartId
                 // item.pricePerUnit,
                 // item.discount,
                 // item.weightPerUnit,
