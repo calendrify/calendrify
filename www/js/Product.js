@@ -8,11 +8,10 @@ class Product {
     clicks my buy-button.
   */
 
-  constructor(data, cartManager, cart) {
+  constructor(data, cartManager) {
     // Object.assign is used to copy all properties from data to me
     Object.assign(this, data);
-    // I also know who is my cart (the App sent me this info)
-    this.cart = cart;
+
     this.cartManager = cartManager;
     // I add listeners to my buy-button(s)
     this.addBuyButtonListener();
@@ -86,6 +85,10 @@ class Product {
     `;
     return str;
   } // renderInList
+
+  setCart(cart) {
+    this.cart = cart;
+  } // setCart
 
   animate() {
     let getProdImgSrc = "#img-" + this.id;
