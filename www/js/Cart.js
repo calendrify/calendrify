@@ -10,7 +10,7 @@ class Cart {
     $("main").html(`
       <section class="row">
         <div class="col">
-          <h1>Kundvagn</h1>
+          <h1>Varukorg</h1>
         </div>
       </section>
       <section class="row">
