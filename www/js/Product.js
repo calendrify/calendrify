@@ -57,6 +57,7 @@ class Product {
           <p>${this.description}</p>
           <h4>${this.price} kr</p>
           <button id="buy-button-${this.id}" class="btn btn-primary my-2">Köp</button>
+          <img class="img-fluid" src="/images/3for2.png">
         </div>
         <div class="col-12 col-lg-3">
           <img class="img-fluid border border-primary rounded" id="img-${this.id}" src="${this.image}">
@@ -68,15 +69,22 @@ class Product {
   renderInList() {
     // This is how I render myself in a list of products
     // (this method is called from a ProductList)
-    return /*html*/ `
+    let str = /*html*/ `
       <div class="col-12 col-md-6 col-lg-4 mt-5">
         <a href="#${this.slug}" class="item" data-toggle="tooltip" title="${this.description}" >
           <h4>${this.name} ${this.price} kr</h4>
-          <button id="buy-button-${this.id}" class="btn btn-primary my-2">Köp</button>
+          <button id="buy-button-${this.id}" class="btn btn-primary my-2">Köp</button>`;
+
+    if (this.discount) {
+      str += `<img class="img-fluid" src="/images/3for2.png" width="50em">`;
+    }
+
+    str += /*html*/ `
           <img class="img-fluid border border-primary rounded prod-img" id="img-${this.id}" src="${this.image}">
         </a>
       </div>
     `;
+    return str;
   } // renderInList
 
   animate() {

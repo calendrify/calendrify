@@ -4,7 +4,7 @@
     "slug": "produkter-babblarna",
     "name": "Babblarnakalender",
     "price": 159,
-    "disount": true,
+    "discount": true,
     "weight": 0.5,
     "image": "/images/babblarnacalender.jpg",
     "description": "Är dina länders frukter trött på Teletubbies? Här får du en perfekt kalender för de allra minsta."
@@ -14,7 +14,7 @@
     "slug": "produkter-badbomb",
     "name": "Badbombskalender",
     "price": 189,
-    "disount": false,
+    "discount": false,
     "weight": 2.5,
     "image": "/images/badbombcalender.jpg",
     "description": "Lukta gott och samtidigt ha kul i badet. Ny doft varje dag - aldrig ha du varit så ren!"
@@ -24,7 +24,7 @@
     "slug": "produkter-chilikalender",
     "name": "Chilikalender",
     "price": 129,
-    "disount": true,
+    "discount": true,
     "weight": 1,
     "image": "/images/chilicalender.jpg",
     "description": "Perfekt för den starkaste! Garanterad halsbränna varje dag."
@@ -34,7 +34,7 @@
     "slug": "produkter-kaffekalender",
     "name": "Kaffekalender",
     "price": 399,
-    "disount": false,
+    "discount": false,
     "weight": 2.5,
     "image": "/images/coffeecalender.jpg",
     "description": "För den inbitna koeffeinisten eller dig som har svårt att vakna på morgonen - en ny fräsch kopp kaffe vare dag"
@@ -44,7 +44,7 @@
     "slug": "produkter-pusselkalender",
     "name": "Pusselkalender",
     "price": 159,
-    "disount": false,
+    "discount": false,
     "weight": 1.2,
     "image": "/images/pusselcalender.jpg",
     "description": "I detta 220-bitarspussel får du fem bitar varje dag. Bra för att träna ditt tålamod. Passar både barn och vuxna."
@@ -54,7 +54,7 @@
     "slug": "produkter-skagg",
     "name": "Skäggkalender",
     "price": 599,
-    "disount": false,
+    "discount": false,
     "weight": 4.3,
     "image": "/images/skäggkalender.jpg",
     "description": "Väx ett perfekt skägg till julafton - var så god!"
@@ -64,7 +64,7 @@
     "slug": "produkter-smink",
     "name": "Sminkkalender",
     "price": 399,
-    "disount": true,
+    "discount": true,
     "weight": 2.5,
     "image": "/images/sminkkalender.jpg",
     "description": "Känner du dig ful som en skata? Här får du allt du behöver för en make-over."
@@ -74,7 +74,7 @@
     "slug": "produkter-strump",
     "name": "Strumpkalender",
     "price": 459,
-    "disount": true,
+    "discount": true,
     "weight": 2.0,
     "image": "/images/strumpkalender1.jpg",
     "description": "Är du för trött för att tvätta? Här du du ett nytt par strumpor varje dag!"
@@ -84,7 +84,7 @@
     "slug": "produkter-tekalender",
     "name": "Tekalender",
     "price": 299,
-    "disount": false,
+    "discount": false,
     "weight": 1.3,
     "image": "/images/tecalender.jpg",
     "description": "Upptäck världens smaker med en rykande het kopp te varje dag."
@@ -94,7 +94,7 @@
     "slug": "produkter-verktygskalender",
     "name": "Verktygskalender",
     "price": 959,
-    "disount": true,
+    "discount": true,
     "weight": 5,
     "image": "/images/verktygscalender.jpg",
     "description": "Ett måste för den händige och hens hang-around"
@@ -104,7 +104,7 @@
     "slug": "produkter-vingummi",
     "name": "Vingummikalender",
     "price": 99,
-    "disount": false,
+    "discount": false,
     "weight": 1,
     "image": "/images/vingummicalender.jpg",
     "description": "Behöver man säga mer - VINGUMMI!!! En klassiker..."
@@ -114,7 +114,7 @@
     "slug": "produkter-nagellack",
     "name": "Nagellackskalender",
     "price": 199,
-    "disount": true,
+    "discount": true,
     "weight": 1.5,
     "image": "/images/nagellackskalender.jpg",
     "description": "Svårt att bestämma färg på morgonen? I denna kalender får du ett unikt nagellack varje dag."
@@ -124,7 +124,7 @@
     "slug": "produkter-beer",
     "name": "Ölkalender",
     "price": 699,
-    "disount": true,
+    "discount": true,
     "weight": 10,
     "image": "/images/Ölkalender.jpg",
     "description": "Hitta din favoritöl bland dessa 24 - Skål!"
@@ -134,7 +134,7 @@
     "slug": "produkter-bilkalender",
     "name": "Bilkalender",
     "price": 159,
-    "disount": false,
+    "discount": false,
     "weight": 2.5,
     "image": "/images/bilcalender.jpg",
     "description": "För pojken i oss alla, en ny kvalitetsleksaksbil varje dag."
@@ -144,7 +144,7 @@
     "slug": "produkter-whiskey",
     "name": "Whiskeykalender",
     "price": 1199,
-    "disount": true,
+    "discount": true,
     "weight": 25,
     "image": "/images/whisky-advent-calendar-2019.jpg",
     "description": "För finsmakaren."
