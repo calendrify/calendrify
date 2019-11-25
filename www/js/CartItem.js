@@ -1,5 +1,5 @@
 class CartItem {
-  constructor(pId, units) {
+  constructor(pId, units, setId, id) {
     // constructor(pId, name, desc, units, ppu, discounted, wpu, url) {
     this.productId = pId;
     this.units = units;
@@ -9,8 +9,12 @@ class CartItem {
     // this.discouted = discounted;
     // this.weightPerUnit = wpu;
     // this.url = url;
-    this.cartId = CartItem.uniqueId++;
-    store.uniqueId = CartItem.uniqueId;
+    if (setId) {
+      this.cartId = id;
+    } else {
+      this.cartId = CartItem.uniqueId++;
+      store.uniqueId = CartItem.uniqueId;
+    }
   } // constructor
 
   getProduct(products) {
@@ -44,7 +48,7 @@ class CartItem {
     const item = this.getProduct(products);
 
     return /*html*/ `
-        <section class="row align-items-center" id=${this.uniqueId}>
+        <section class="row align-items-center" id=${this.cartId}>
           <section class="col-1">
             <i class="far fa-trash-alt btnDelete"></i>
           </section>
