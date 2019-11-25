@@ -62,7 +62,7 @@ class App {
     this.products = [];
     // Loop through the JSON data and create Products
     for (let productData of productsData) {
-      let product = new Product(productData, this.cartManager, this.cart);
+      let product = new Product(productData, this.cartManager);
       this.products.push(product);
       this.routes[product.slug] = product;
     } // for...
@@ -73,6 +73,9 @@ class App {
     this.cart = new Cart(this.cartManager, this.products);
     this.cart.renderInDropDown();
     this.cart.updateArticleCount();
+
+    // Set the cart fererence in the products
+    for (let p of this.products) p.setCart(this.cart);
 
     // Update the cart in the routing table
     this.routes["cart"] = this.cart;
