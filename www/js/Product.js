@@ -42,6 +42,13 @@ class Product {
     });
   }
 
+  /**
+   * Set the associated cart
+   */
+  setCart(cart) {
+    this.cart = cart;
+  } // setCart
+
   render() {
     // This is how I render myself on a product-detail page
     // there it only me
@@ -72,23 +79,17 @@ class Product {
       <div class="col-12 col-md-6 col-lg-4 mt-5">
         <a href="#${this.slug}" class="item" data-toggle="tooltip" title="${this.description}" >
           <h4>${this.name} ${this.price} kr</h4>
-          <button id="buy-button-${this.id}" class="btn btn-primary my-2">Köp</button>`;
+          <button id="buy-button-${this.id}" class="btn btn-primary my-2">Köp</button>
+          <div class="container-prod-img">
+            <img class="img-fluid border border-primary rounded prod-img" id="img-${this.id}" src="${this.image}">`;
 
     if (this.discount) {
-      str += `<img class="img-fluid" src="/images/3for2.png" width="50em">`;
+      str += `<img class="img-fluid discount-img" src="/images/3for2.png" width=90em">`;
     }
 
-    str += /*html*/ `
-          <img class="img-fluid border border-primary rounded prod-img" id="img-${this.id}" src="${this.image}">
-        </a>
-      </div>
-    `;
+    str += `</div></a></div>`;
     return str;
   } // renderInList
-
-  setCart(cart) {
-    this.cart = cart;
-  } // setCart
 
   animate() {
     let getProdImgSrc = "#img-" + this.id;
