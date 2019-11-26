@@ -49,3 +49,14 @@ ul.dropdown-cart li .item-right {
 ul.dropdown-cart li .item-right button {
   margin-top: 14px;
 }
+
+.container-prod-img {
+  position: relative;
+}
+
+.discount-img {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  transform: rotate(30deg);
+}
