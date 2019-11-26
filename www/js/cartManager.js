@@ -120,6 +120,41 @@ class CartManager {
   } // getNumberOfItems
 
   /**
+   * Returns the total weight for all items in the cart
+   */
+  getTotalWeight(products){
+    this.update();
+    let totalWeight = 0;
+    for (let item of this.items) {
+      let pItem = products.find(i => i.id == item.productId);
+      totalWeight += (pItem.weight * item.units);
+    }
+    return totalWeight;
+  }//getTotalWeight
+  
+  /**
+   * Returns total price with 3 for 2 discount without shipping costs 
+   */
+   getTotalPrice(products){
+     this.update();
+     let totalPrice = 0;
+     for (let item of this.items) {
+      let pItem = products.find(i => i.id == item.productId);
+       if (pItem.discount){
+         let totalUnits = 0; 
+         let totalDiscountUnits = Math.floor (item.units / 3); //avrundar ner till närmsta heltal
+         totalUnits = item.units - totalDiscountUnits;
+         totalPrice += (pItem.price * totalUnits); 
+       }
+       else {
+         totalPrice += (pItem.price * item.units);
+       }
+     } //for...
+     return totalPrice;
+   }// getTotalPrice
+
+
+  /**
    * Returns the list of items in the cart
    */
   getItems() {

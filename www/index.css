@@ -60,3 +60,19 @@ ul.dropdown-cart li .item-right button {
   right: -20px;
   transform: rotate(30deg);
 }
+
+.cart-item i {
+  cursor: pointer;
+  color:inherit;
+}
+
+.discount-cart-img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  /* transform: rotate(30deg); */
+  z-index: -5;
+}
+
+
+
