@@ -10,20 +10,27 @@ class CartManager {
    * @param {*} units How many units are being bought
    */
   add(item, units) {
-    let cItem = new CartItem(
-      item.id,
-      // item.name,
-      // item.description,
-      units,
-      false,
-      0
-      // item.price,
-      // item.discount,
-      // item.weight,
-      // item.image
-    );
+    let cartItem = this.get(item.id);
 
-    this.items.push(cItem);
+    if (!cartItem) {
+      let cItem = new CartItem(
+        item.id,
+        // item.name,
+        // item.description,
+        units,
+        false,
+        0
+        // item.price,
+        // item.discount,
+        // item.weight,
+        // item.image
+      );
+
+      this.items.push(cItem);
+    } else {
+      cartItem.units++;
+    }
+
     this.save();
   } // add
 
@@ -62,34 +69,35 @@ class CartManager {
 
   /**
    * Update an item in the cart.
-   * @param {*} itemNr the id of the item to update
-   * @param {*} item The item fo put in the cart
+   * @param {*} prodNr the id of the item to update
+   * @param {*} item The item to put in the cart
    */
-  updateItem(itemNr, item) {
+  updateItem(prodNr, item) {
     this.update();
-    const idx = this.items.findIndex(item => item.id == itemNr);
+    const idx = this.items.findIndex(item => item.productId == prodNr);
     this.items[idx] = item;
     this.save();
   } // updateItem
+
   /**
    * Removes and item from the cart
-   * @param {*} itemNr Id of item to remove
+   * @param {*} prodNr Id of item to remove
    */
-  removeItem(itemNr) {
+  removeItem(prodNr) {
     this.update();
-    const idx = this.items.findIndex(item => item.id == itemNr);
+    const idx = this.items.findIndex(item => item.productId == prodNr);
     this.items.splice(idx, 1);
     this.save();
   } // removeItem
 
   /**
    * Returns the value associated with a given key.
-   * @param {*} itemNr Item to retrieve.
+   * @param {*} prodNr Product id of item to retrieve.
    * @returns {CartItem} Found value or null.
    */
-  get(itemNr) {
+  get(prodNr) {
     this.update();
-    return this.items.find(item => item.id == itemNr);
+    return this.items.find(item => item.productId == prodNr);
   } // get
 
   /**

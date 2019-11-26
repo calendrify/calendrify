@@ -8,8 +8,3 @@ try {
 store.save = function() {
   localStorage.store = JSON.stringify(this);
 };
-
-// store.addItem = function(key, value) {
-//   store.key = value;
-//   store.save();
-// };

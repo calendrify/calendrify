@@ -48,9 +48,11 @@ class CartItem {
     const item = this.getProduct(products);
 
     return /*html*/ `
-        <section class="row align-items-center" id=${this.cartId}>
+        <section class="row align-items-center" id=${this.productId}>
           <section class="col-1">
-            <i class="far fa-trash-alt btnDelete"></i>
+            <i class="far fa-trash-alt btnDelete" id="delete-button-${
+              this.productId
+            }"></i>
           </section>
           <section class="col-8 col-md-7 align-items-center">
             <p>${item.description}</p>

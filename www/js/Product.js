@@ -38,7 +38,6 @@ class Product {
       this.cart.updateArticleCount();
       this.cart.renderInDropDown();
       this.animate();
-      // this.cart.add(this, 1);
     });
   }
 
@@ -103,7 +102,7 @@ class Product {
           left: animateImg.offset().left
         })
         .css({
-          opacity: "0.5",
+          opacity: "0.7",
           position: "absolute",
           height: "100px",
           width: "150px",
@@ -114,8 +113,8 @@ class Product {
           {
             top: cart.offset().top + 10,
             left: cart.offset().left,
-            width: 30,
-            height: 20
+            width: 75,
+            height: 50
           },
           1000,
           "easeInOutExpo"
@@ -124,8 +123,8 @@ class Product {
         cart.effect(
           "shake",
           {
-            times: 2,
-            distance: 10
+            times: 3,
+            distance: 5
           },
           200
         );
