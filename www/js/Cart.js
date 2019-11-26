@@ -126,7 +126,7 @@ class Cart {
           </section>
           <section class="row">
             <section class="col-12 text-right">
-              <a href="#addressform"><button id="order-button">Beställ</button></a>
+              <a href="#addressform"><button class="btn btn-primary" id="order-button">Beställ</button></a>
             </section>
           </section>
           `;

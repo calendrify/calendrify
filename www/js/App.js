@@ -23,7 +23,7 @@ class App {
       "": new StartPage(),
       omoss: new AboutUs(),
       page404: new Page404(),
-      adressform : new AddressForm(),
+      addressform : new AddressForm(),
       cart: null // Make space for the cart, but we will create the object and update the table in loadProcucts
     };
 
