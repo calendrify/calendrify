@@ -74,7 +74,7 @@ class App {
     this.cart.renderInDropDown();
     this.cart.updateArticleCount();
 
-    // Set the cart fererence in the products
+    // Set the cart reference in the products
     for (let p of this.products) p.setCart(this.cart);
 
     // Update the cart in the routing table
