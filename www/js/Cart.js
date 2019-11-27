@@ -77,7 +77,6 @@ class Cart {
           .join("")}
           `;
           str+= "<hr/>";
-          console.log( $('.discounted'));
           
           if (str.includes('discounted')){
             str += `<section class="row small">
@@ -127,7 +126,7 @@ class Cart {
           </section>
           <section class="row">
             <section class="col-12 text-right">
-              <button id="order-button">Beställ</button>
+              <a href="#addressform"><button class="btn btn-primary" id="order-button">Beställ</button></a>
             </section>
           </section>
           `;
