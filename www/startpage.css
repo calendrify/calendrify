@@ -1,0 +1,67 @@
+.backDoor1 {
+  width: 200px;
+  height: 300px;
+  color: White;
+  position: relative;
+  background-color: #333;
+
+  --door-height: 300px;
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-image: url(/images/3for2.png);
+}
+
+.backDoor2 {
+  width: 200px;
+  height: 200px;
+  color: White;
+  position: relative;
+
+  --door-height: 200px;
+
+  background-size: contain;
+  background-color: black;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(/images/whisky-kalender-scotch.png);
+}
+
+.door {
+  background-color: red;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 200px;
+  height: var(--door-height);
+
+  transform-origin: right;
+  transition: all 0.9s ease-in-out;
+}
+
+.door p,
+.backDoor2 p {
+  font-size: 160%;
+  pointer-events: none;
+  word-wrap: break-word;
+  font-family: "Mountains of Christmas", cursive;
+}
+
+.backDoor2 > a > p {
+  font-size: 120%;
+  word-wrap: break-word;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.doorOpenRight {
+  /*prespectiv creates the door open effect*/
+  transform: perspective(1200px) translateZ(0px) translateX(0px) translateY(0px)
+    rotateY(105deg);
+}
+
+.doorOpenLeft {
+  /*prespectiv creates the door open effect*/
+  transform: perspective(1200px) translateZ(0px) translateX(0px) translateY(0px)
+    rotateY(-105deg);
+}
