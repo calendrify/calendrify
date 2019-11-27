@@ -16,10 +16,12 @@ class Confirmation {
 
     $("main").html(/*html*/ `
       <section class="row">
-        <div class="col">
-        <i class="fas fa-check-circle"></i>
-          <h1>Tack för din beställning!</h1>
-          <p>En bekräftelse har skickats till: ${email} </p>
+        <div class="col d-flex justify-content-center">
+        <div class="message-container"> 
+        <i class="fas fa-check-circle"id="confirm" ></i>
+        <h1>Tack för din beställning!</h1>
+        <p>En bekräftelse har skickats till: ${email} </p>
+        </div>
         </div>
       </section>
     `);
