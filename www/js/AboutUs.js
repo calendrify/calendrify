@@ -43,7 +43,7 @@ class AboutUs {
         </div>
       <section class="row">
         <div class="col">
-          <h2 class="text-primary mt-4">Julkalenderns historia</h2>
+          <h2 class="text-primary mt-4">Julkalenderns och Calendrifys historia</h2>
           <p>Redan före julkalendern fanns en tradition i den protestantiska delen av Tyskland, att göra ett kritstreck på dörren för varje dag i december fram till julafton. Andra tände ett nytt ljus för varje dag, eller hängde upp en liten religiös tavla.</p>
           <p>Julkalenderns historia började i mitten av 1880-talet när en tysk mamma ville göra tiden fram till jul lite lättare för sin fyraårige son Gerhard. Hon gjorde i ordning en bit färgglad kartong med tjugofyra kakor på. Pojken fick sedan äta en kaka om dagen fram till jul.</p>
           <p>Många år senare blev Gerhard Lang delägare i ett tryckeri. Han mindes sin barndoms kak-kalender, vilket inspirerade honom till att vid 1900-talets början ge ut den första tryckta julkalendern i form av en julkalender. Dock, året innan gavs en kalender ut i form av en adventsklocka (adventuhr) i Hamburg och man kan diskutera huruvida detta var den första tryckta julkalendern eller inte. Gerhard Langs adventskalender bestod av två ark varav det ena hade tjugofyra julmotiv, som efter hand klipptes ut och fästes på motsvarande plats på det andra arket. Succén blev oväntat stor och på 1920-talet skapade Lang en ny variant med luckor och tredimensionella julkalendrar avsedda för innehåll i form av föremål. Dessa hade stadsmotiv och religiösa motiv.</p>
