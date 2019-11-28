@@ -1,13 +1,15 @@
 :root {
   --offset: 60px;
   --top-door1: 1vh;
-  --top-door2: 28vh;
-  --top-door3: 45vh;
+  --top-door2: 25vh;
+  --top-door3: 40vh;
+  --size-factor: 0.8;
 }
 
 @media (min-width: 576px) {
   :root {
     --offset: 150px;
+    --size-factor: 1;
     --top-door1: 5vh;
     --top-door2: 35vh;
     --top-door3: 50vh;
@@ -16,8 +18,8 @@
 
 @media (min-width: 768px) {
   :root {
-    --top-door1: 8vh;
     --offset: 250px;
+    --top-door1: 8vh;
   }
 }
 
@@ -28,40 +30,40 @@
 .inner-door1 {
   position: absolute;
   --bg-color: black;
-  --door-width: 150px;
-  --door-height: 200px;
   top: var(--top-door1);
-  left: calc(50% - 75px);
   --backround-pos: bottom center;
   --door-transform-origin: right;
   --door-transform-degree: 105deg;
   --bg-image: url(/images/3for2.png);
+  --door-width: calc(150px * var(--size-factor));
+  --door-height: calc(200px * var(--size-factor));
+  left: calc(50% - calc(var(--door-width) / 2));
 }
 
 .inner-door2 {
   position: absolute;
   --bg-color: black;
-  --door-width: 150px;
-  --door-height: 150px;
   top: var(--top-door2);
   --backround-pos: center;
   --door-transform-origin: right;
   --door-transform-degree: 105deg;
-  left: calc(calc(50% - 75px) + var(--offset));
+  --door-width: calc(150px * var(--size-factor));
+  --door-height: calc(150px * var(--size-factor));
   --bg-image: url(/images/whisky-kalender-scotch.png);
+  left: calc(calc(50% - calc(var(--door-width) / 2) + var(--offset)));
 }
 
 .inner-door3 {
   --bg-color: pink;
   position: absolute;
   top: var(--top-door3);
-  left: calc(calc(50% - 75px) - var(--offset));
-  --door-width: 200px;
-  --door-height: 200px;
   --backround-pos: center;
   --door-transform-origin: left;
   --door-transform-degree: -105deg;
   --bg-image: url(/images/badbombcalender.jpg);
+  --door-width: calc(200px * var(--size-factor));
+  --door-height: calc(200px * var(--size-factor));
+  left: calc(calc(50% - calc(var(--door-width) / 2) - var(--offset)));
 }
 
 .backDoor {
@@ -106,17 +108,17 @@
 
 .door p {
   color: white;
-  font-size: 120%;
   pointer-events: none;
   word-wrap: break-word;
+  font-size: calc(120% * var(--size-factor));
   font-family: "Mountains of Christmas", cursive;
 }
 
 .backDoor > a > p {
   color: yellow;
-  font-size: 75%;
   font-family: inherit;
   word-wrap: break-word;
+  font-size: calc(75% * var(--size-factor));
 }
 
 .doorOpen {
@@ -160,6 +162,6 @@
   }
 }
 
-main{
+main {
   padding-top: 7vh;
 }
