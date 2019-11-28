@@ -47,7 +47,12 @@ ul.dropdown-cart li .item-right {
 }
 
 ul.dropdown-cart li .item-right button {
-  margin-top: 14px;
+  font-size: 70%;
+  margin-top: 1em;
+}
+
+.item-left img{
+  margin-top:0.5em;
 }
 
 .container-prod-img {
@@ -63,7 +68,7 @@ ul.dropdown-cart li .item-right button {
 
 .cart-item i {
   cursor: pointer;
-  color:inherit;
+  color: inherit;
 }
 
 .discount-cart-img {
@@ -74,5 +79,18 @@ ul.dropdown-cart li .item-right button {
   z-index: -5;
 }
 
+.item-separator {
+  margin-top: 1px;
+  margin-bottom: 1px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
 
+.cart-sum, .cart-sum-right{
+  padding: 2px 10px;
+  font-weight: bold; 
+}
 
+.cart-sum-right{
+  float:right;
+}

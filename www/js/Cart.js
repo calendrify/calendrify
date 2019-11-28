@@ -24,7 +24,7 @@ class Cart {
         .attr("id");
 
       let cartItem = this.cartManager.get(id);
-      if(cartItem.units > 0){
+      if (cartItem.units > 0) {
         cartItem.units--;
         this.cartManager.updateItem(id, cartItem);
         this.render();
@@ -39,12 +39,11 @@ class Cart {
         .attr("id");
 
       let cartItem = this.cartManager.get(id);
-        cartItem.units++;
-        this.cartManager.updateItem(id, cartItem);
-        this.render();
-        this.renderInDropDown();
-        this.updateArticleCount();
-      
+      cartItem.units++;
+      this.cartManager.updateItem(id, cartItem);
+      this.render();
+      this.renderInDropDown();
+      this.updateArticleCount();
     });
 
     $("body").on("click", ".trash-button", e => {
@@ -56,37 +55,35 @@ class Cart {
       this.renderInDropDown();
       this.updateArticleCount();
     });
-
   }
 
   render() {
     // Render all items in the cart to a web page
-    let str=/*html*/ `
+    let str = /*html*/ `
       <section class="row">
         <div class="col">
           <h1 class="text-primary">Varukorg</h1>
         </div>
       </section>`;
 
-      if (this.cartManager.items.length === 0) {
-       str+= "<div>Kundvagnen är tom!</div>";}
-       else {
-        // Notice the "loop" using the array map method 
-        str += `${this.cartManager.items
-          .map(item => item.render(this.products))
-          .join("")}
+    if (this.cartManager.items.length === 0) {
+      str += "<div>Kundvagnen är tom!</div>";
+    } else {
+      // Notice the "loop" using the array map method
+      str += `${this.cartManager.items
+        .map(item => item.render(this.products))
+        .join("")}
           `;
-          str+= "<hr/>";
-          
-          if (str.includes('discounted')){
-            str += `<section class="row small">
+      str += "<hr/>";
+
+      if (str.includes("discounted")) {
+        str += `<section class="row small">
             <section class="col-12">
               <p>* = Ingår i 3 för 2 erbjudandet</p>
             </section>
             </section>`;
-
-          }
-          str+= `<section class="row">
+      }
+      str += `<section class="row">
                     <section class="col-11 text-right">
                       <p>Summa</p>
                     </section>
@@ -96,32 +93,35 @@ class Cart {
                   </section>
          `;
 
-         str+= `<section class="row">
+      str += `<section class="row">
          <section class="col-11 text-right">
            <p>Frakt</p>
          </section>
          <section class="col-1 text-right">
-           ${this.cartManager.getTotalWeight(this.products) *40}
+           ${this.cartManager.getTotalWeight(this.products) * 40}
          </section>
        </section>
 `;
 
-          str+= `<section class="row font-weight-bold">
+      str += `<section class="row font-weight-bold">
           <section class="col-11 text-right">
             <p>Totalsumma</p>
           </section>
           <section class="col-1 text-right">
-            ${this.cartManager.getTotalWeight(this.products) *40 + this.cartManager.getTotalPrice(this.products) }
+            ${this.cartManager.getTotalWeight(this.products) * 40 +
+              this.cartManager.getTotalPrice(this.products)}
           </section>
           </section>
           `;
 
-          str+= `<section class="row small">
+      str += `<section class="row small">
           <section class="col-11 text-right">
             <p>Varav moms</p>
           </section>
           <section class="col-1 text-right">
-            ${(this.cartManager.getTotalWeight(this.products) *40 + this.cartManager.getTotalPrice(this.products)) *0.25 }
+            ${(this.cartManager.getTotalWeight(this.products) * 40 +
+              this.cartManager.getTotalPrice(this.products)) *
+              0.25}
           </section>
           </section>
           <section class="row">
@@ -130,20 +130,22 @@ class Cart {
             </section>
           </section>
           `;
-        
-        }
-        $("main").html(str);
-        } // render
+    }
+    $("main").html(str);
+  } // render
 
   renderInDropDown() {
     if (this.cartManager.items.length === 0) {
-      $("#cart-menu").html("<div>Kundvagnen är tom!</div>");
+      $("#cart-menu").html("<div class='text-center'>Kundvagnen är tom!</div>");
     } else {
       $("#cart-menu").html(
         this.cartManager.items
           .map(item => item.renderInDropDown(this.products))
           .join("") +
-          ' <hr/><li><a class="text-center" href="#cart">Gå till kundvagn</a></li>'
+          `<span class="cart-sum">Summa: </span><span class="cart-sum-right">${this.cartManager.getTotalPrice(
+            this.products
+          )} kr</span>` +
+          ' <hr class="item-separator" /><li><a class="text-center" href="#cart"><button class="btn btn-primary w-100">Gå till kundvagn</button></a></li>'
       );
     } // else
   } // renderInDropDown

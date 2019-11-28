@@ -23,7 +23,8 @@ class App {
       "": new StartPage(),
       omoss: new AboutUs(),
       page404: new Page404(),
-      addressform : new AddressForm(),
+      addressform: new AddressForm(this.cartManager),
+      confirmation: new Confirmation(),
       cart: null // Make space for the cart, but we will create the object and update the table in loadProcucts
     };
 
@@ -74,6 +75,7 @@ class App {
     this.cart = new Cart(this.cartManager, this.products);
     this.cart.renderInDropDown();
     this.cart.updateArticleCount();
+    this.routes["addressform"].setCart(this.cart);
 
     // Set the cart reference in the products
     for (let p of this.products) p.setCart(this.cart);
