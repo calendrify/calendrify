@@ -117,7 +117,7 @@ class Product {
           position: "absolute",
           height: "100px",
           width: "150px",
-          "z-index": "100"
+          "z-index": "10000"
         })
         .appendTo($("body"))
         .animate(
