@@ -8,6 +8,7 @@ class Cart {
   } // constructor
 
   addButtonListeners() {
+    // Delete the item
     $("body").on("click", ".btnDelete", e => {
       let id = $(e.target)
         .closest(".cart-item")
@@ -18,11 +19,14 @@ class Cart {
       this.renderInDropDown();
       this.updateArticleCount();
     });
+
+    // Decrease the number of units
     $("body").on("click", ".btnMinus", e => {
       let id = $(e.target)
         .closest(".cart-item")
         .attr("id");
 
+      // Does the cart item have any items at all?
       let cartItem = this.cartManager.get(id);
       if (cartItem.units > 0) {
         cartItem.units--;
@@ -30,9 +34,10 @@ class Cart {
         this.render();
         this.renderInDropDown();
         this.updateArticleCount();
-      }
+      } // if cartItem...
     });
 
+    // Add another unit to the item
     $("body").on("click", ".btnPlus", e => {
       let id = $(e.target)
         .closest(".cart-item")
@@ -55,7 +60,7 @@ class Cart {
       this.renderInDropDown();
       this.updateArticleCount();
     });
-  }
+  } // addButtonListeners
 
   render() {
     // Render all items in the cart to a web page
@@ -150,6 +155,10 @@ class Cart {
     } // else
   } // renderInDropDown
 
+  /**
+   * Updates the text containing the number of items in the cart
+   * @returns {number} Number of total items in the cart.
+   */
   updateArticleCount() {
     $("#articles-in-cart").text(" " + this.cartManager.getNumberOfItems());
   } // updateArticleCount

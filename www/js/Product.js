@@ -39,7 +39,7 @@ class Product {
       this.cart.renderInDropDown();
       this.animate();
     });
-  }
+  } // addBuyButtonListener
 
   /**
    * Set the associated cart
@@ -65,9 +65,11 @@ class Product {
           </div>
           <div class="col-12 col-md-4">
             <img class="img-fluid border border-primary rounded" id="img-${this.id}" src="${this.image}">`;
+
+    // Add the discount image if the item is discounted
     if (this.discount) {
       str += `<img class="img-fluid discount-img" src="/images/3for2.png" width="120em">`;
-    }
+    } // if this...
 
     str += `      
         </div>
@@ -87,6 +89,7 @@ class Product {
           <div class="container-prod-img">
             <img class="img-fluid border border-primary rounded prod-img" id="img-${this.id}" src="${this.image}">`;
 
+    // Add the discount image if the item is discounted
     if (this.discount) {
       str += `<img class="img-fluid discount-img" src="/images/3for2.png" width=90em">`;
     }
@@ -149,4 +152,4 @@ class Product {
       );
     } // if animateImg...
   } // animate
-}
+} // class Product
