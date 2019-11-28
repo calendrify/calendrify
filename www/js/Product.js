@@ -76,6 +76,9 @@ class Product {
       </section>
     `;
     $("main").html(str);
+
+    // $('[data-toggle="tooltip"]').tooltip();
+    // $(document.body).tooltip({ selector: "[title]" });
   } // render
 
   renderInList() {
@@ -83,7 +86,7 @@ class Product {
     // (this method is called from a ProductList)
     let str = /*html*/ `
       <div class="col-12 col-md-6 col-lg-4 mt-5">
-        <a href="#${this.slug}" class="item" data-toggle="tooltip" title="${this.description}" >
+        <a href="#${this.slug}" class="item" data-toggle="tooltip" title="${this.description}" data-placement="left" >
           <h4>${this.name} ${this.price} kr</h4>
           <button id="buy-button-${this.id}" class="btn btn-primary my-2">Köp</button>
           <div class="container-prod-img">

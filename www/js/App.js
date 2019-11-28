@@ -33,8 +33,8 @@ class App {
     // Load the products from JSON
     this.loadProducts();
 
-    // Aktivera tooltips
-    $('[data-toggle="tooltip"]').tooltip();
+    // Activate tooltips
+    $(document.body).tooltip({ selector: "[title]" });
   } // constructor
 
   changeRoute() {

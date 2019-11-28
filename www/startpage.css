@@ -1,8 +1,8 @@
 :root {
   --offset: 60px;
-  --top-door1: 1vh;
-  --top-door2: 25vh;
-  --top-door3: 40vh;
+  --top-door1: 29vh;
+  --top-door2: 50vh;
+  --top-door3: 70vh;
   --size-factor: 0.8;
 }
 
@@ -10,25 +10,21 @@
   :root {
     --offset: 150px;
     --size-factor: 1;
-    --top-door1: 5vh;
-    --top-door2: 35vh;
-    --top-door3: 50vh;
+    --top-door1: 17vh;
+    --top-door2: 50vh;
+    --top-door3: 60vh;
   }
 }
 
 @media (min-width: 768px) {
   :root {
     --offset: 250px;
-    --top-door1: 8vh;
+    --top-door1: 20vh;
   }
 }
 
-.outer-door {
-  position: relative;
-}
-
-.inner-door1 {
-  position: absolute;
+.door1 {
+  position: fixed;
   --bg-color: black;
   top: var(--top-door1);
   --backround-pos: bottom center;
@@ -40,8 +36,8 @@
   left: calc(50% - calc(var(--door-width) / 2));
 }
 
-.inner-door2 {
-  position: absolute;
+.door2 {
+  position: fixed;
   --bg-color: black;
   top: var(--top-door2);
   --backround-pos: center;
@@ -53,9 +49,9 @@
   left: calc(calc(50% - calc(var(--door-width) / 2) + var(--offset)));
 }
 
-.inner-door3 {
+.door3 {
+  position: fixed;
   --bg-color: pink;
-  position: absolute;
   top: var(--top-door3);
   --backround-pos: center;
   --door-transform-origin: left;
