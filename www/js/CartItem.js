@@ -1,31 +1,30 @@
+/**
+ * The class represents an item in the cart.
+ * The only values it contains is the product id and the number of units for that item.
+ * The actual product information is retrieved through the product id from the products list sent as parameter to the different render methods.
+ */
+
 class CartItem {
-  constructor(pId, units, setId, id) {
-    // constructor(pId, name, desc, units, ppu, discounted, wpu, url) {
-    this.productId = pId;
+  constructor(id, units) {
+    this.id = id;
     this.units = units;
-    // this.name = name;
-    // this.description = desc;
-    // this.pricePerUnit = ppu;
-    // this.discouted = discounted;
-    // this.weightPerUnit = wpu;
-    // this.url = url;
-    if (setId) {
-      this.cartId = id;
-    } else {
-      this.cartId = CartItem.uniqueId++;
-      store.uniqueId = CartItem.uniqueId;
-    }
   } // constructor
 
   getProduct(products) {
-    return products.find(item => item.id == this.productId);
+    return products.find(item => item.id == this.id);
   } // getProduct
+
+  /**
+   * Renders the cart item in the cart drop down list located in the menu
+   * @param {*} products an array of all the products, so we can look up the product info
+   * @returns {string} HTML-formatted string.
+   */
 
   renderInDropDown(products) {
     const item = this.getProduct(products);
 
     return /*html*/ `
-    <li class= "cart-item" id=${this.productId}>
+    <li class= "cart-item" id=${this.id}>
       <span class="item" data-toggle="tooltip" title="${item.description}">
         <span class="item-left">
           <img
@@ -46,16 +45,21 @@ class CartItem {
     </li>`;
   } // renderInDropDown
 
+  /**
+   * Renders the cart item in the cart drop down list located in the menu
+   * @param {*} products an array of all the products, so we can look up the product info
+   * @returns {string} HTML-formatted string.
+   */
   render(products) {
     const item = this.getProduct(products);
 
     let str = /*html*/ `
-        <section class="row cart-item" id=${this.productId}>
+        <section class="row cart-item" id=${this.id}>
           <section class="col-1">
-            <i class="far fa-trash-alt btnDelete" id="delete-button-${this.productId}"></i>
+            <i class="far fa-trash-alt btnDelete" id="delete-button-${this.id}"></i>
           </section>
           <section class="col-8 col-md-7">
-            <p>${item.name}</p>
+            <p data-toggle="tooltip" title="${item.description}">${item.name}</p>
           </section>
           <section class="col-3 offset-2 col-md-2 offset-md-0">
             <span>
@@ -68,19 +72,21 @@ class CartItem {
               <i class="fas fa-plus btnPlus"></i>
             </span>
           </section>
-
           <section class="col-1 text-right container-prod-img">
             <p>${item.price}`;
 
+    // Is the item discounted (3-for-2): display an asterisk after the price
     if (item.discount) {
       str += "<span class='discounted'>*</span>";
-      // str += `<img class="img-fluid discount-cart-img" src="/images/3for2.png" width=20em">`;
-    }
+    } // if item...
+
     str += `</p>
           </section>
           <section class="col-4 col-md-1 text-right">
             <p class="font-weight-bold">`;
 
+    // Add the total item price information
+    // Is the item discounted (3-for-2): calculate the discount
     if (item.discount) {
       let totalUnits = 0;
       let totalDiscountUnits = Math.floor(this.units / 3); //avrundar ner till närmsta heltal
@@ -88,7 +94,8 @@ class CartItem {
       str += item.price * totalUnits;
     } else {
       str += item.price * this.units;
-    }
+    } // else
+
     str += `</p>
           </section>
         </section>`;

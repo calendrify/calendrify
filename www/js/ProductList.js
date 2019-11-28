@@ -6,7 +6,7 @@ class ProductList {
 
   constructor(products) {
     this.products = products;
-  }
+  } // constructor
 
   render() {
     $("main").html(/*html*/ `
@@ -20,5 +20,5 @@ class ProductList {
         ${this.products.map(product => product.renderInList()).join("")}
       </section>
     `);
-  }
-}
+  } // render
+} // constructor

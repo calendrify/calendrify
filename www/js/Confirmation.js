@@ -25,5 +25,5 @@ class Confirmation {
         </div>
       </section>
     `);
-  }
-}
+  } // render
+} // class Confirmation

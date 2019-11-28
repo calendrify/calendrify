@@ -1,35 +1,28 @@
 class CartManager {
   constructor() {
     this.items = [];
-    this.update();
-  }
+    this.load();
+  } // constructor
 
   /**
    * Adds a cart item to the cart.
+   * If the item already exist, increase the item count instead
    * @param {*} item A Product-object to store.
    * @param {*} units How many units are being bought
    */
   add(item, units) {
+    // Check to see if the cart item already exists in the cart
     let cartItem = this.get(item.id);
 
+    // If it doesn't, create a new cart item and add it to the list
     if (!cartItem) {
-      let cItem = new CartItem(
-        item.id,
-        // item.name,
-        // item.description,
-        units,
-        false,
-        0
-        // item.price,
-        // item.discount,
-        // item.weight,
-        // item.image
-      );
+      let cItem = new CartItem(item.id, units);
 
       this.items.push(cItem);
     } else {
+      // Oh, it does exist... increase the unit count then
       cartItem.units++;
-    }
+    } // else
 
     this.save();
   } // add
@@ -43,38 +36,23 @@ class CartManager {
   } // save
 
   /**
-   * Loads the cart items from the cart and create the internal list with cart items.
+   * Loads the cart items from the cart and create the internal list of cart items.
    */
-  update() {
+  load() {
     const list = store.cartItems;
     this.items =
       list == undefined
         ? []
-        : JSON.parse(list).map(
-            item =>
-              new CartItem(
-                item.productId,
-                // item.name,
-                // item.description,
-                item.units,
-                true,
-                item.cartId
-                // item.pricePerUnit,
-                // item.discount,
-                // item.weightPerUnit,
-                // item.url
-              )
-          );
-  } // update
+        : JSON.parse(list).map(item => new CartItem(item.id, item.units));
+  } // load
 
   /**
    * Update an item in the cart.
    * @param {*} prodNr the id of the item to update
-   * @param {*} item The item to put in the cart
+   * @param {*} item The updated item to put in the cart
    */
   updateItem(prodNr, item) {
-    this.update();
-    const idx = this.items.findIndex(item => item.productId == prodNr);
+    const idx = this.items.findIndex(item => item.id == prodNr);
     this.items[idx] = item;
     this.save();
   } // updateItem
@@ -84,8 +62,7 @@ class CartManager {
    * @param {*} prodNr Id of item to remove
    */
   removeItem(prodNr) {
-    this.update();
-    const idx = this.items.findIndex(item => item.productId == prodNr);
+    const idx = this.items.findIndex(item => item.id == prodNr);
     this.items.splice(idx, 1);
     this.save();
   } // removeItem
@@ -96,8 +73,7 @@ class CartManager {
    * @returns {CartItem} Found value or null.
    */
   get(prodNr) {
-    this.update();
-    return this.items.find(item => item.productId == prodNr);
+    return this.items.find(item => item.id == prodNr);
   } // get
 
   /**
@@ -111,9 +87,9 @@ class CartManager {
 
   /**
    * Returns the total number of items in the cart, and NOT the unique products
+   * @returns {number} Number of total items.
    */
   getNumberOfItems() {
-    this.update();
     let itemCount = 0;
     for (let item of this.items) itemCount += item.units;
     return itemCount;
@@ -121,47 +97,42 @@ class CartManager {
 
   /**
    * Returns the total weight for all items in the cart
+   * @returns {number} The total weight of all of the items.
    */
-  getTotalWeight(products){
-    this.update();
+  getTotalWeight(products) {
     let totalWeight = 0;
     for (let item of this.items) {
-      let pItem = products.find(i => i.id == item.productId);
-      totalWeight += (pItem.weight * item.units);
+      let pItem = products.find(i => i.id == item.id);
+      totalWeight += pItem.weight * item.units;
     }
     return totalWeight;
-  }//getTotalWeight
-  
-  /**
-   * Returns total price with 3 for 2 discount without shipping costs 
-   */
-   getTotalPrice(products){
-     this.update();
-     let totalPrice = 0;
-     for (let item of this.items) {
-      let pItem = products.find(i => i.id == item.productId);
-       if (pItem.discount){
-         let totalUnits = 0; 
-         let totalDiscountUnits = Math.floor (item.units / 3); //avrundar ner till närmsta heltal
-         totalUnits = item.units - totalDiscountUnits;
-         totalPrice += (pItem.price * totalUnits); 
-       }
-       else {
-         totalPrice += (pItem.price * item.units);
-       }
-     } //for...
-     return totalPrice;
-   }// getTotalPrice
+  } //getTotalWeight
 
+  /**
+   * Returns total price with 3 for 2 discount without shipping costs
+   * @returns {number} The total price for all the items, discount withdrawn.
+   */
+  getTotalPrice(products) {
+    let totalPrice = 0;
+    for (let item of this.items) {
+      let pItem = products.find(i => i.id == item.id);
+      if (pItem.discount) {
+        let totalUnits = 0;
+        let totalDiscountUnits = Math.floor(item.units / 3); //avrundar ner till närmsta heltal
+        totalUnits = item.units - totalDiscountUnits;
+        totalPrice += pItem.price * totalUnits;
+      } else {
+        totalPrice += pItem.price * item.units;
+      }
+    } //for...
+    return totalPrice;
+  } // getTotalPrice
 
   /**
    * Returns the list of items in the cart
+   * @returns {[]]} The listof items.
    */
   getItems() {
-    this.update();
     return this.items;
   } // getItems
 } // CartManager
-
-// Load the currently last used unique id
-CartItem.uniqueId = Number(store.uniqueId || 0);
