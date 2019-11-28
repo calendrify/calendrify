@@ -1,3 +1,19 @@
+.outer-door {
+  position: relative;
+}
+
+.inner-door1 {
+  top: 10vh;
+  left: 25vw;
+  position: absolute;
+}
+
+.inner-door2 {
+  top: 40vh;
+  left: 50vw;
+  position: absolute;
+}
+
 .backDoor1 {
   width: 200px;
   height: 300px;
@@ -28,8 +44,17 @@
   background-image: url(/images/whisky-kalender-scotch.png);
 }
 
-.door {
+.red-door {
+  color: black;
   background-color: red;
+}
+
+.green-door {
+  color: white;
+  background-color: green;
+}
+
+.door {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -42,6 +67,7 @@
 
 .door p,
 .backDoor2 p {
+  color: white;
   font-size: 160%;
   pointer-events: none;
   word-wrap: break-word;
@@ -49,9 +75,10 @@
 }
 
 .backDoor2 > a > p {
-  font-size: 120%;
+  color: white;
+  font-size: 100%;
+  font-family: inherit;
   word-wrap: break-word;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 .doorOpenRight {
@@ -64,4 +91,38 @@
   /*prespectiv creates the door open effect*/
   transform: perspective(1200px) translateZ(0px) translateX(0px) translateY(0px)
     rotateY(-105deg);
+}
+.fullscreen-bg {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: -100;
+}
+
+.fullscreen-bg__video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  min-width: 100%;
+  min-height: 100%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+@media (max-width: 767px) {
+  .fullscreen-bg {
+    background: url("/images/background_phone.JPG") center center / cover
+      no-repeat;
+  }
+
+  .fullscreen-bg__video {
+    display: none;
+  }
 }

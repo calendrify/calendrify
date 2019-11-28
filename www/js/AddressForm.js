@@ -18,8 +18,6 @@ class AddressForm {
       data["email"] = $("#inputEmail4").val();
       data["gridcheck"] = $("#gridCheck:checked").val() ? true : false;
 
-      console.log("AddressForm:readFormData", cartManager);
-
       address.addressInfo = JSON.stringify(data);
       address.save();
       this.cartManager.clearCart();
@@ -28,14 +26,11 @@ class AddressForm {
 
       window.location = "#confirmation";
     });
-    console.log("AddressForm:constructor", cartManager);
   } // constructor
 
   setCart(cart) {
-    console.log("Nu sätter vi cart!!!");
-
     this.cart = cart;
-  }
+  } // setCart
 
   render() {
     $("main").html(/*html*/ `

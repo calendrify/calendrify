@@ -136,7 +136,7 @@ class Cart {
 
   renderInDropDown() {
     if (this.cartManager.items.length === 0) {
-      $("#cart-menu").html("<div>Kundvagnen är tom!</div>");
+      $("#cart-menu").html("<div class='text-center'>Kundvagnen är tom!</div>");
     } else {
       $("#cart-menu").html(
         this.cartManager.items

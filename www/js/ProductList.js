@@ -12,7 +12,7 @@ class ProductList {
     $("main").html(/*html*/ `
       <section class="row">
         <div class="col">
-          <h1>Våra kalendrar</h1>
+          <h1 class="text-primary">Våra kalendrar</h1>
         </div>
       </section>
       <section class="row">

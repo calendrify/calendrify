@@ -51,24 +51,29 @@ class Product {
   render() {
     // This is how I render myself on a product-detail page
     // there it only me
-    $("main").html(/*html*/ `
+    let str = /*html*/ `
      <section class="row">
         <div class="col">
-          <h1>${this.name}</h1>
+          <h1 class="text-primary text-center">${this.name}</h1>
         </div>
       </section>
       <section class="row">
-        <div class="col-12 col-lg-9">
+        <div class="col-12 col-md-4 offset-md-2">
           <p>${this.description}</p>
           <h4>${this.price} kr</p>
           <button id="buy-button-${this.id}" class="btn btn-primary my-2">Köp</button>
-          <img class="img-fluid" src="/images/3for2.png">
-        </div>
-        <div class="col-12 col-lg-3">
-          <img class="img-fluid border border-primary rounded" id="img-${this.id}" src="${this.image}">
+          </div>
+          <div class="col-12 col-md-4">
+            <img class="img-fluid border border-primary rounded" id="img-${this.id}" src="${this.image}">`;
+    if (this.discount) {
+      str += `<img class="img-fluid discount-img" src="/images/3for2.png" width="120em">`;
+    }
+
+    str += `      
         </div>
       </section>
-    `);
+    `;
+    $("main").html(str);
   } // render
 
   renderInList() {
@@ -94,6 +99,9 @@ class Product {
     let getProdImgSrc = "#img-" + this.id;
     let cart = $(".fas.fa-shopping-cart");
     let animateImg = $(getProdImgSrc);
+
+    $("audio#pop")[0].play();
+
     if (animateImg) {
       let animateImgClone = animateImg
         .clone()
