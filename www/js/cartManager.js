@@ -83,6 +83,7 @@ class CartManager {
     store.cartItems = null;
     store.uniqueId = null;
     store.save();
+    this.load();
   } // clearCart
 
   /**
