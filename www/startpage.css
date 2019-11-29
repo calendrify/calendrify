@@ -19,7 +19,7 @@
 @media (min-width: 768px) {
   :root {
     --offset: 250px;
-    --top-door1: 20vh;
+    --top-door1: 21vh;
   }
 }
 
@@ -159,5 +159,13 @@
 }
 
 main {
-  padding-top: 7vh;
+  padding-top: 9vh;
+}
+
+footer {
+  background: linear-gradient(
+    90deg,
+    rgba(101, 1, 4, 1) 0%,
+    rgba(201, 12, 1, 1) 100%
+  );
 }

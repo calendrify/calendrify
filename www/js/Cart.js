@@ -59,6 +59,14 @@ class Cart {
       this.cartManager.removeItem(id);
       this.renderInDropDown();
       this.updateArticleCount();
+
+      // Are we on the cart page? If so, re-render it
+      if (
+        $(location)
+          .attr("href")
+          .includes("#cart")
+      )
+        this.render();
     });
   } // addButtonListeners
 
@@ -79,51 +87,49 @@ class Cart {
         .map(item => item.render(this.products))
         .join("")}
           `;
-      str += "<hr/>";
+      str += "<hr class='mt-2 mb-0'/>";
 
       if (str.includes("discounted")) {
         str += `<section class="row small">
             <section class="col-12">
-              <p>* = Ingår i 3 för 2 erbjudandet</p>
+              <p class='mb-0'>* = Ingår i 3 för 2 erbjudandet</p>
             </section>
             </section>`;
       }
       str += `<section class="row">
-                    <section class="col-11 text-right">
+                    <section class="col-9 col-md-10 col-lg-11 text-right">
                       <p>Summa</p>
                     </section>
-                    <section class="col-1 text-right">
+                    <section class="col-3 col-md-2 col-lg-1 text-right">
                       ${this.cartManager.getTotalPrice(this.products)}
                     </section>
                   </section>
          `;
 
       str += `<section class="row">
-         <section class="col-11 text-right">
+         <section class="col-9 col-md-10 col-lg-11 text-right">
            <p>Frakt</p>
          </section>
-         <section class="col-1 text-right">
+         <section class="col-3 col-md-2 col-lg-1 text-right">
            ${this.cartManager.getTotalWeight(this.products) * 40}
          </section>
-       </section>
-`;
+       </section>`;
 
       str += `<section class="row font-weight-bold">
-          <section class="col-11 text-right">
-            <p>Totalsumma</p>
-          </section>
-          <section class="col-1 text-right">
-            ${this.cartManager.getTotalWeight(this.products) * 40 +
-              this.cartManager.getTotalPrice(this.products)}
-          </section>
-          </section>
-          `;
+            <section class="col-9 col-md-10 col-lg-11 text-right">
+              <p>Totalsumma</p>
+            </section>
+            <section class="col-3 col-md-2 col-lg-1 text-right">
+              ${this.cartManager.getTotalWeight(this.products) * 40 +
+                this.cartManager.getTotalPrice(this.products)}
+            </section>
+          </section>`;
 
       str += `<section class="row small">
-          <section class="col-11 text-right">
+          <section class="col-9 col-md-10 col-lg-11 text-right">
             <p>Varav moms</p>
           </section>
-          <section class="col-1 text-right">
+          <section class="col-3 col-md-2 col-lg-1 text-right">
             ${(this.cartManager.getTotalWeight(this.products) * 40 +
               this.cartManager.getTotalPrice(this.products)) *
               0.25}
@@ -143,6 +149,7 @@ class Cart {
     if (this.cartManager.items.length === 0) {
       $("#cart-menu").html("<div class='text-center'>Kundvagnen är tom!</div>");
     } else {
+      $('[data-toggle="tooltip"]').tooltip("dispose");
       $("#cart-menu").html(
         this.cartManager.items
           .map(item => item.renderInDropDown(this.products))
@@ -150,8 +157,10 @@ class Cart {
           `<span class="cart-sum">Summa: </span><span class="cart-sum-right">${this.cartManager.getTotalPrice(
             this.products
           )} kr</span>` +
-          ' <hr class="item-separator" /><li><a class="text-center" href="#cart"><button class="btn btn-primary w-100">Gå till kundvagn</button></a></li>'
+          ' <hr class="item-separator" /><li><a class="text-center" href="#cart"><button class="btn btn-primary w-100">Gå till varukorg</button></a></li>'
       );
+
+      $('[data-toggle="tooltip"]').tooltip();
     } // else
   } // renderInDropDown
 
