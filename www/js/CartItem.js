@@ -54,26 +54,32 @@ class CartItem {
     const item = this.getProduct(products);
 
     let str = /*html*/ `
-        <section class="row cart-item" id=${this.id}>
-          <section class="col-1">
-            <i class="far fa-trash-alt btnDelete" id="delete-button-${this.id}"></i>
+        <section class="row cart-item my-1" id=${this.id}>
+          <section class="col-1 mb-1 mb-md-0">
+            <button class="btn btn-primary btnDelete"><i class="far fa-trash-alt" id="delete-button-${this.id}"></i></button>
           </section>
-          <section class="col-8 col-md-7">
-            <p data-toggle="tooltip" title="${item.description}" data-placement="left">${item.name}</p>
+          <section class="col-10 offset-1 offset-md-0 col-md-4 col-lg-7 align-self-center">
+            <p class="m-0" data-toggle="tooltip" title="${item.description}" data-placement="left">${item.name}</p>
           </section>
-          <section class="col-3 offset-2 col-md-2 offset-md-0">
+          <section class="col-7 col-md-3 col-lg-2">
             <span>
-              <i class="fas fa-minus btnMinus"></i>
+              <button class="btn btn-primary btnMinus"><i class="fas fa-minus"></i></button>
             </span>
-            <span class="font-weight-bold">
+            <span class="font-weight-bold px-1">
               ${this.units}
             </span>
             <span>
-              <i class="fas fa-plus btnPlus"></i>
+              <button class="btn btn-primary btnPlus" 
+                  data-container='body' 
+                  data-toggle='popover' 
+                  data-placement='right' 
+                  data-content='3-för-2 rabatt - om du lägger till en till så blir den gratis!'>
+                    <i class="fas fa-plus"></i>
+                  </button>
             </span>
           </section>
-          <section class="col-1 text-right container-prod-img">
-            <p>${item.price}`;
+          <section class="col-1 col-md-2 col-lg-1 text-right align-self-center">
+            <p class="m-0">${item.price}`;
 
     // Is the item discounted (3-for-2): display an asterisk after the price
     if (item.discount) {
@@ -82,8 +88,8 @@ class CartItem {
 
     str += `</p>
           </section>
-          <section class="col-4 col-md-1 text-right">
-            <p class="font-weight-bold">`;
+          <section class="col-4 col-md-2 col-lg-1 text-right align-self-center">
+            <p class="font-weight-bold m-0">`;
 
     // Add the total item price information
     // Is the item discounted (3-for-2): calculate the discount

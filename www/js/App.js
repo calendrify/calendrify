@@ -32,9 +32,6 @@ class App {
     $(window).on("hashchange", () => this.changeRoute());
     // Load the products from JSON
     this.loadProducts();
-
-    // Activate tooltips
-    $(document.body).tooltip({ selector: "[title]" });
   } // constructor
 
   changeRoute() {
@@ -49,8 +46,16 @@ class App {
     // (the css selector finds a-tags with matching hrefs)
     $("header nav a").removeClass("active");
     $(`header nav a[href="#${hashFirstPart}"]`).addClass("active");
+
+    // Deactivate tooltips (otherwise any active tooltip on the Kalendrar page will stay put until reload of the page)
+    $('[data-toggle="tooltip"]').tooltip("dispose");
+
     // Render content
     pageToShow.render();
+
+    // Activate tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+    // $(document.body).tooltip({ selector: "[title]" });
   }
 
   // An async function is allowed to await things
