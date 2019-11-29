@@ -25,7 +25,7 @@ class CartItem {
 
     return /*html*/ `
     <li class= "cart-item" id=${this.id}>
-      <span class="item" data-toggle="tooltip" title="${item.description}">
+      <span class="item" data-toggle="tooltip" title="${item.description}" data-placement="left">
         <span class="item-left">
           <img
             src=${item.image}
@@ -59,7 +59,7 @@ class CartItem {
             <i class="far fa-trash-alt btnDelete" id="delete-button-${this.id}"></i>
           </section>
           <section class="col-8 col-md-7">
-            <p data-toggle="tooltip" title="${item.description}">${item.name}</p>
+            <p data-toggle="tooltip" title="${item.description}" data-placement="left">${item.name}</p>
           </section>
           <section class="col-3 offset-2 col-md-2 offset-md-0">
             <span>
@@ -99,6 +99,7 @@ class CartItem {
     str += `</p>
           </section>
         </section>`;
+
     return str;
   } // render
 } // CartItem

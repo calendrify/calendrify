@@ -1,9 +1,12 @@
-$primary: #ec244c;
-$secondary: #ffffff;
-$success: #2b5c3b;
-$info: #619c78;
-$warning: #b4d4c1;
-$danger: red;
-$light: #265439;
+$primary:        #ec244c;
+$secondary:      #ffffff;
+$success:        #2b5c3b;
+$info:           #619c78;
+$warning:        #b4d4c1;
+$danger:         red;
+$light:          #265439;
+
+$tooltip-bg:      $primary !default;
+$tooltip-opacity: .9 !default;
 
 $font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Nunito", sans-serif;
