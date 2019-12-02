@@ -94,7 +94,7 @@ class AddressForm {
 
         <div class="row">
           <div class="col-12 d-flex offset-md-3 col-md-6 justify-content-between">
-            <a href="#produkter">Fortsätt handla</a>
+            <a class="btn btn-primary" href="#produkter">Fortsätt handla</a>
             <button type="submit" class="btn btn-primary">Bekräfta beställning</button>
           </div>
         </div>

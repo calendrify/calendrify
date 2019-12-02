@@ -8,6 +8,11 @@ class CartItem {
   constructor(id, units) {
     this.id = id;
     this.units = units;
+
+    // Create a number formatter
+    this.sweNumFormatter = new Intl.NumberFormat("sv-SE", {
+      maximumFractionDigits: 0
+    });
   } // constructor
 
   getProduct(products) {
@@ -25,7 +30,9 @@ class CartItem {
 
     return /*html*/ `
     <li class= "cart-item" id=${this.id}>
-      <span class="item" data-toggle="tooltip" title="${item.description}" data-placement="left">
+      <span class="item" data-toggle="tooltip" title="${
+        item.description
+      }" data-placement="left">
         <span class="item-left">
           <img
             src=${item.image}
@@ -33,8 +40,8 @@ class CartItem {
           />
           <span class="item-info small">
             <span>${item.name}</span>
-            <span>Antal: ${this.units}</span>
-            <span>Pris/st: ${item.price} kr</span>
+            <span>Antal: ${this.sweNumFormatter.format(this.units)}</span>
+            <span>Pris/st: ${this.sweNumFormatter.format(item.price)} kr</span>
           </span>
         </span>
         <span class="item-right">
@@ -56,24 +63,28 @@ class CartItem {
     let str = /*html*/ `
         <section class="row cart-item my-1" id=${this.id}>
           <section class="col-1 mb-1 mb-md-0">
-            <button class="btn btn-primary btnDelete"><i class="far fa-trash-alt" id="delete-button-${this.id}"></i></button>
+            <button class="btn btn-primary btnDelete"><i class="far fa-trash-alt" id="delete-button-${
+              this.id
+            }"></i></button>
           </section>
           <section class="col-10 offset-1 offset-md-0 col-md-4 col-lg-7 align-self-center">
-            <p class="m-0" data-toggle="tooltip" title="${item.description}" data-placement="bottom">${item.name}</p>
+            <p class="m-0" data-toggle="tooltip" title="${
+              item.description
+            }" data-placement="bottom">${item.name}</p>
           </section>
           <section class="col-7 col-md-3 col-lg-2">
             <span>
               <button class="btn btn-primary btnMinus"><i class="fas fa-minus"></i></button>
             </span>
             <span class="font-weight-bold px-1">
-              ${this.units}
+              ${this.sweNumFormatter.format(this.units)}
             </span>
             <span>`;
 
     // If the item is discounted and thre is one item left to get the discount,
     // create a popupable element (a-tag)
     if (item.discount && this.units % 3 === 2) {
-      str += `<a class="btn btn-primary btnPlus text-white" 
+      str += /*html*/ `<a class="btn btn-primary btnPlus text-white" 
                   role="button" 
                   tabindex="0"
                   data-trigger="focus"
@@ -84,22 +95,24 @@ class CartItem {
                 <i class="fas fa-plus"></i>
               </a>`;
     } else {
-      str += `<button class="btn btn-primary btnPlus">  
+      str += /*html*/ `<button class="btn btn-primary btnPlus">  
                 <i class="fas fa-plus"></i>
               </button>`;
     } //  else
 
-    str += `</span>
+    str += /*html*/ `</span>
           </section>
           <section class="col-1 col-md-2 col-lg-1 text-right align-self-center">
-            <p class="m-0">${item.price}`;
+            <p class="m-0 discountParent">${this.sweNumFormatter.format(
+              item.price
+            )}</p>`;
 
     // Is the item discounted (3-for-2): display an asterisk after the price
     if (item.discount) {
-      str += "<span class='discounted'>*</span>";
+      str += /*html*/ `<span class='discounted'>*</span>`;
     } // if item...
 
-    str += `</p>
+    str += /*html*/ `
           </section>
           <section class="col-4 col-md-2 col-lg-1 text-right align-self-center">
             <p class="font-weight-bold m-0">`;
@@ -109,14 +122,15 @@ class CartItem {
     if (item.discount) {
       let totalDiscountUnits = Math.floor(this.units / 3); //avrundar ner till närmsta heltal
       let totalUnits = this.units - totalDiscountUnits;
-      str += item.price * totalUnits;
+      str += this.sweNumFormatter.format(item.price * totalUnits);
     } else {
-      str += item.price * this.units;
+      str += this.sweNumFormatter.format(item.price * this.units);
     } // else
 
-    str += `</p>
+    str += /*html*/ `</p>
           </section>
-        </section>`;
+        </section>
+        <hr class="item-separator d-md-none"/>`;
 
     return str;
   } // render
