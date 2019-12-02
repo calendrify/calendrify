@@ -131,7 +131,7 @@ class CartManager {
 
   /**
    * Returns the list of items in the cart
-   * @returns {[]]} The listof items.
+   * @returns {[]} The listof items.
    */
   getItems() {
     return this.items;

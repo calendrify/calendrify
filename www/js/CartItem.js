@@ -59,7 +59,7 @@ class CartItem {
             <button class="btn btn-primary btnDelete"><i class="far fa-trash-alt" id="delete-button-${this.id}"></i></button>
           </section>
           <section class="col-10 offset-1 offset-md-0 col-md-4 col-lg-7 align-self-center">
-            <p class="m-0" data-toggle="tooltip" title="${item.description}" data-placement="left">${item.name}</p>
+            <p class="m-0" data-toggle="tooltip" title="${item.description}" data-placement="bottom">${item.name}</p>
           </section>
           <section class="col-7 col-md-3 col-lg-2">
             <span>
@@ -68,15 +68,28 @@ class CartItem {
             <span class="font-weight-bold px-1">
               ${this.units}
             </span>
-            <span>
-              <button class="btn btn-primary btnPlus" 
-                  data-container='body' 
-                  data-toggle='popover' 
-                  data-placement='right' 
-                  data-content='3-för-2 rabatt - om du lägger till en till så blir den gratis!'>
-                    <i class="fas fa-plus"></i>
-                  </button>
-            </span>
+            <span>`;
+
+    // If the item is discounted and thre is one item left to get the discount,
+    // create a popupable element (a-tag)
+    if (item.discount && this.units % 3 === 2) {
+      str += `<a class="btn btn-primary btnPlus text-white" 
+                  role="button" 
+                  tabindex="0"
+                  data-trigger="focus"
+                  data-toggle="popover"
+                  data-placement="right"
+                  data-content="Om du lägger till en kalender till så blir den gratis!"
+                  title="3-för-2 rabatt">  
+                <i class="fas fa-plus"></i>
+              </a>`;
+    } else {
+      str += `<button class="btn btn-primary btnPlus">  
+                <i class="fas fa-plus"></i>
+              </button>`;
+    } //  else
+
+    str += `</span>
           </section>
           <section class="col-1 col-md-2 col-lg-1 text-right align-self-center">
             <p class="m-0">${item.price}`;
@@ -94,9 +107,8 @@ class CartItem {
     // Add the total item price information
     // Is the item discounted (3-for-2): calculate the discount
     if (item.discount) {
-      let totalUnits = 0;
       let totalDiscountUnits = Math.floor(this.units / 3); //avrundar ner till närmsta heltal
-      totalUnits = this.units - totalDiscountUnits;
+      let totalUnits = this.units - totalDiscountUnits;
       str += item.price * totalUnits;
     } else {
       str += item.price * this.units;
