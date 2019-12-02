@@ -55,8 +55,7 @@ class App {
 
     // Activate tooltips
     $('[data-toggle="tooltip"]').tooltip();
-    // $(document.body).tooltip({ selector: "[title]" });
-  }
+  } // changeRoute
 
   // An async function is allowed to await things
   // Loading data from JSON takes time

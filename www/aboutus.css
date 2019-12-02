@@ -1,0 +1,9 @@
+.text-about-us {
+  text-align: left;
+}
+
+@media (min-width: 992px) {
+  .text-about-us {
+    text-align: justify;
+  }
+}

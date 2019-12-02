@@ -71,6 +71,8 @@ class Cart {
   } // addButtonListeners
 
   render() {
+    $('[data-toggle="popover"]').popover("dispose");
+
     // Render all items in the cart to a web page
     let str = /*html*/ `
       <section class="row">
@@ -98,51 +100,75 @@ class Cart {
       }
       str += `<section class="row">
                     <section class="col-9 col-md-10 col-lg-11 text-right">
-                      <p>Summa</p>
+                      <p class='mb-1'>Summa</p>
                     </section>
                     <section class="col-3 col-md-2 col-lg-1 text-right">
-                      ${this.cartManager.getTotalPrice(this.products)}
+                      <p class='mb-1'>${this.cartManager.getTotalPrice(
+                        this.products
+                      )}</p>
                     </section>
-                  </section>
-         `;
+                  </section>`;
 
       str += `<section class="row">
          <section class="col-9 col-md-10 col-lg-11 text-right">
-           <p>Frakt</p>
+           <p class='mb-1'>Frakt</p>
          </section>
          <section class="col-3 col-md-2 col-lg-1 text-right">
-           ${this.cartManager.getTotalWeight(this.products) * 40}
+           <p class='mb-1'>${this.cartManager.getTotalWeight(this.products) *
+             40}</p>
          </section>
        </section>`;
 
       str += `<section class="row font-weight-bold">
             <section class="col-9 col-md-10 col-lg-11 text-right">
-              <p>Totalsumma</p>
+              <p class='mb-1'>Totalsumma</p>
             </section>
             <section class="col-3 col-md-2 col-lg-1 text-right">
-              ${this.cartManager.getTotalWeight(this.products) * 40 +
-                this.cartManager.getTotalPrice(this.products)}
+              <p class='mb-1'>${this.cartManager.getTotalWeight(this.products) *
+                40 +
+                this.cartManager.getTotalPrice(this.products)}</p>
             </section>
           </section>`;
 
       str += `<section class="row small">
           <section class="col-9 col-md-10 col-lg-11 text-right">
-            <p>Varav moms</p>
+            <p class='mb-1'>Varav moms</p>
           </section>
           <section class="col-3 col-md-2 col-lg-1 text-right">
-            ${(this.cartManager.getTotalWeight(this.products) * 40 +
-              this.cartManager.getTotalPrice(this.products)) *
-              0.25}
+            <p class='mb-1'>${Math.round(
+              (this.cartManager.getTotalWeight(this.products) * 40 +
+                this.cartManager.getTotalPrice(this.products)) *
+                0.25
+            )}</p>
           </section>
           </section>
           <section class="row">
             <section class="col-12 text-right">
               <a href="#addressform"><button class="btn btn-primary" id="order-button">Beställ</button></a>
             </section>
-          </section>
-          `;
+          </section>`;
     }
     $("main").html(str);
+
+    $('[data-toggle="popover"]').popover();
+    $('[data-toggle="popover"]').popover("show");
+
+    $("body").on("click", function(e) {
+      $('[data-toggle="popover"]').each(function() {
+        //the 'is' for buttons that trigger popups
+        //the 'has' for icons within a button that triggers a popup
+        if (
+          !$(this).is(e.target) &&
+          $(this).has(e.target).length === 0 &&
+          $(".popover").has(e.target).length === 0
+        ) {
+          $(this).popover("dispose");
+          // $('[data-toggle="popover"]').popover();
+          // $('[data-toggle="popover"]').popover("show");
+        }
+      });
+    });
+    // $(".popover-dismiss").popover({ trigger: "focus" });
   } // render
 
   renderInDropDown() {
