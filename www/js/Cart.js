@@ -85,7 +85,23 @@ class Cart {
       str += "<div>Kundvagnen är tom!</div>";
     } else {
       // Notice the "loop" using the array map method
-      str += `${this.cartManager.items
+      str += /*html */`
+      <section class="row font-weight-bold">
+        <section class="col-lg-7 offset-lg-1">
+          <p>Produkt</p>
+        </section>
+        <section class="col-lg-2">
+          <p>Lägg till/Ta bort</p>
+        </section>
+        <section class="col-lg-1 text-right">
+          <p>Pris</p>
+        </section>
+        <section class="col-lg-1 text-right">
+          <p>Summa</p>
+      </section>
+      </section>
+      <hr class="mt-0 mb-2"/>
+      ${this.cartManager.items
         .map(item => item.render(this.products))
         .join("")}
           `;
