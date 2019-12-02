@@ -110,23 +110,28 @@ class CartManager {
   } //getTotalWeight
 
   /**
-   * Returns total price with 3 for 2 discount without shipping costs
-   * @returns {number} The total price for all the items, discount withdrawn.
+   * Returns total price  and total amount saved with 3 for 2 discount without shipping costs
+   * @returns {object} The total price with discount and total saved amount for all the items.
    */
   getTotalPrice(products) {
     let totalPrice = 0;
+    let totalSaved = 0;
+
     for (let item of this.items) {
       let pItem = products.find(i => i.id == item.id);
       if (pItem.discount) {
         let totalUnits = 0;
         let totalDiscountUnits = Math.floor(item.units / 3); //avrundar ner till närmsta heltal
+
         totalUnits = item.units - totalDiscountUnits;
         totalPrice += pItem.price * totalUnits;
+        totalSaved += pItem.price * totalDiscountUnits;
       } else {
         totalPrice += pItem.price * item.units;
       }
     } //for...
-    return totalPrice;
+
+    return { totalPrice: totalPrice, totalSaved: totalSaved };
   } // getTotalPrice
 
   /**

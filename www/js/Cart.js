@@ -5,6 +5,11 @@ class Cart {
     this.cartManager = cartManager;
 
     this.addButtonListeners();
+
+    // Create a number formatter
+    this.sweNumFormatter = new Intl.NumberFormat("sv-SE", {
+      maximumFractionDigits: 0
+    });
   } // constructor
 
   addButtonListeners() {
@@ -28,7 +33,7 @@ class Cart {
 
       // Does the cart item have any items at all?
       let cartItem = this.cartManager.get(id);
-      if (cartItem.units > 0) {
+      if (cartItem.units > 1) {
         cartItem.units--;
         this.cartManager.updateItem(id, cartItem);
         this.render();
@@ -85,42 +90,39 @@ class Cart {
       str += "<div>Kundvagnen är tom!</div>";
     } else {
       // Notice the "loop" using the array map method
-      str += /*html */`
+      str += /*html */ `
       <section class="row font-weight-bold">
-        <section class="col-lg-7 offset-lg-1">
-          <p>Produkt</p>
+        <section class="col-10 col-md-4 offset-md-1 col-lg-7 offset-lg-1 d-none d-md-block">
+          <p class="mb-1">Produkt</p>
         </section>
-        <section class="col-lg-2">
-          <p>Lägg till/Ta bort</p>
+        <section class="col-8 col-md-5 col-lg-3 text-right d-none d-md-block">
+          <p class="mb-1">Pris</p>
         </section>
-        <section class="col-lg-1 text-right">
-          <p>Pris</p>
-        </section>
-        <section class="col-lg-1 text-right">
-          <p>Summa</p>
+        <section class="col-1 col-md-2 col-lg-1 text-right d-none d-md-block">
+          <p class="mb-1">Summa</p>
       </section>
       </section>
-      <hr class="mt-0 mb-2"/>
-      ${this.cartManager.items
-        .map(item => item.render(this.products))
-        .join("")}
+      <hr class="mt-0 mb-2 d-none d-md-block"/>
+      ${this.cartManager.items.map(item => item.render(this.products)).join("")}
           `;
       str += "<hr class='mt-2 mb-0'/>";
 
       if (str.includes("discounted")) {
-        str += `<section class="row small">
-            <section class="col-12">
-              <p class='mb-0'>* = Ingår i 3 för 2 erbjudandet</p>
-            </section>
+        str +=
+          /*html*/
+          `<section class="row small">
+              <section class="col">
+                <p class='mb-0'>* = Ingår i 3 för 2 erbjudandet</p>
+              </section>
             </section>`;
       }
-      str += `<section class="row">
+      str += /*html*/ `<section class="row">
                     <section class="col-9 col-md-10 col-lg-11 text-right">
                       <p class='mb-1'>Summa</p>
                     </section>
                     <section class="col-3 col-md-2 col-lg-1 text-right">
-                      <p class='mb-1'>${this.cartManager.getTotalPrice(
-                        this.products
+                      <p class='mb-1'>${this.sweNumFormatter.format(
+                        this.cartManager.getTotalPrice(this.products).totalPrice
                       )}</p>
                     </section>
                   </section>`;
@@ -130,8 +132,9 @@ class Cart {
            <p class='mb-1'>Frakt</p>
          </section>
          <section class="col-3 col-md-2 col-lg-1 text-right">
-           <p class='mb-1'>${this.cartManager.getTotalWeight(this.products) *
-             40}</p>
+           <p class='mb-1'>${this.sweNumFormatter.format(
+             this.cartManager.getTotalWeight(this.products) * 40
+           )}</p>
          </section>
        </section>`;
 
@@ -140,26 +143,44 @@ class Cart {
               <p class='mb-1'>Totalsumma</p>
             </section>
             <section class="col-3 col-md-2 col-lg-1 text-right">
-              <p class='mb-1'>${this.cartManager.getTotalWeight(this.products) *
-                40 +
-                this.cartManager.getTotalPrice(this.products)}</p>
+              <p class='mb-1'>${this.sweNumFormatter.format(
+                this.cartManager.getTotalWeight(this.products) * 40 +
+                  this.cartManager.getTotalPrice(this.products).totalPrice
+              )}</p>
             </section>
           </section>`;
 
-      str += `<section class="row small">
+      str += /*html*/ `<section class="row small">
           <section class="col-9 col-md-10 col-lg-11 text-right">
             <p class='mb-1'>Varav moms</p>
           </section>
           <section class="col-3 col-md-2 col-lg-1 text-right">
-            <p class='mb-1'>${Math.round(
+            <p class='mb-1'>${this.sweNumFormatter.format(
               (this.cartManager.getTotalWeight(this.products) * 40 +
-                this.cartManager.getTotalPrice(this.products)) *
+                this.cartManager.getTotalPrice(this.products).totalPrice) *
                 0.25
             )}</p>
           </section>
-          </section>
-          <section class="row">
-            <section class="col-12 text-right">
+          </section>`;
+
+      if (str.includes("discounted")) {
+        str += /*html*/ `<section class="row small">
+            <section class="col-11 text-right">
+              <p class='mb-0'>Du sparar</p>
+            </section>
+            <section class="col-1 text-right">
+              <p class='mb-0'>${this.sweNumFormatter.format(
+                this.cartManager.getTotalPrice(this.products).totalSaved
+              )}</p>
+            </section>
+          </section>`;
+      }
+
+      str += /*html*/ `<section class="row">
+            <section class="col-11 text-right">
+              <a class="btn btn-primary" href="#produkter">Fortsätt handla</a>
+            </section>
+            <section class="col-1 text-right mx-0">
               <a href="#addressform"><button class="btn btn-primary" id="order-button">Beställ</button></a>
             </section>
           </section>`;
@@ -196,8 +217,8 @@ class Cart {
         this.cartManager.items
           .map(item => item.renderInDropDown(this.products))
           .join("") +
-          `<span class="cart-sum">Summa: </span><span class="cart-sum-right">${this.cartManager.getTotalPrice(
-            this.products
+          `<span class="cart-sum">Summa: </span><span class="cart-sum-right">${this.sweNumFormatter.format(
+            this.cartManager.getTotalPrice(this.products)
           )} kr</span>` +
           ' <hr class="item-separator" /><li><a class="text-center" href="#cart"><button class="btn btn-primary w-100">Gå till varukorg</button></a></li>'
       );
@@ -211,6 +232,8 @@ class Cart {
    * @returns {number} Number of total items in the cart.
    */
   updateArticleCount() {
-    $("#articles-in-cart").text(" " + this.cartManager.getNumberOfItems());
+    $("#articles-in-cart").text(
+      " " + this.sweNumFormatter.format(this.cartManager.getNumberOfItems())
+    );
   } // updateArticleCount
 } // Cart
