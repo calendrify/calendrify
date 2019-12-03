@@ -13,7 +13,8 @@ class OrderManager {
       $(e.target).toggleClass("fa-sort-amount-down-alt");
       this.render();
     });
-  }
+  } // addButtonListener
+
   /**
    * Loads the order items from local storage.
    */
@@ -52,7 +53,7 @@ class OrderManager {
           product.discount
         )
       );
-    }
+    } // for let...
 
     let newOrder = new Order(
       addressinfo,
@@ -66,7 +67,7 @@ class OrderManager {
 
   render() {
     let str = /*html*/ `
-    <section class="row justify-space-between">
+    <section class="row justify-space-between align-items-center">
      <section class="col">
       <h1 class="text-primary">Orderhistorik</h1>
          </section>
@@ -84,7 +85,7 @@ class OrderManager {
       </section>`;
 
     if (this.orderList.length === 0) {
-      str += `<section class="row">
+      str += /*html*/ `<section class="row">
                 <section class="col text-center text-primary">
                   <h2>Orderhistorik saknas!</h2>
                 </section>
@@ -100,9 +101,9 @@ class OrderManager {
               .join("")
       }
         <div class="accordion" id="accordion">
-        </div>
-    `;
-    }
+        </div>`;
+    } // else
+
     $("main").html(str);
   } // render
 } // class OrderManager

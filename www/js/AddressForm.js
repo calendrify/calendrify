@@ -43,10 +43,6 @@ class AddressForm {
     });
   } // constructor
 
-  // setCart(cart) {
-  //   this.cart = cart;
-  // } // setCart
-
   render() {
     $("main").html(/*html*/ `
       <section class="row">
@@ -114,8 +110,7 @@ class AddressForm {
           </div>
         </div>
       </form>
-    </section>
-      `);
+    </section>`);
 
     // Get the address information from local storage. Must be done here since there is no HTML in the constructor
     const info = address.addressInfo;

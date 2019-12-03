@@ -36,7 +36,6 @@ class OrderItem {
             : "Ingen rabatt"
         }
       </section>
-    </section>
-    `;
-  }
+    </section>`;
+  } // render
 } // class OrderIten
