@@ -19,3 +19,25 @@ try {
 address.save = function() {
   localStorage.address = JSON.stringify(this);
 };
+
+let order;
+try {
+  order = JSON.parse(localStorage.order);
+} catch (e) {
+  order = {};
+}
+
+order.save = function() {
+  localStorage.order = JSON.stringify(this);
+};
+
+let lastOrderId;
+try {
+  lastOrderId = JSON.parse(localStorage.lastOrderId);
+} catch (e) {
+  lastOrderId = {};
+}
+
+lastOrderId.save = function() {
+  localStorage.lastOrderId = JSON.stringify(this);
+};

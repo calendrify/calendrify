@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="/startpage.css" />
     <link rel="stylesheet" href="/confirmation.css" />
     <link rel="stylesheet" href="/navbar-animation.css" />
+    <link rel="stylesheet" href="/OrderManager.css" />
   </head>
 
   <body>
@@ -62,14 +63,33 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto animate-ul">
-            <li class="nav-item">
+            <li
+              class="nav-item"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+            >
               <a class="nav-link" href="#">Start</a>
             </li>
-            <li class="nav-item">
+            <li
+              class="nav-item"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+            >
               <a class="nav-link" href="#omoss">Om oss</a>
             </li>
-            <li class="nav-item">
+            <li
+              class="nav-item"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+            >
               <a class="nav-link" href="#produkter">Kalendrar</a>
+            </li>
+            <li
+              class="nav-item"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+            >
+              <a class="nav-link" href="#orders">Orderhistorik</a>
             </li>
             <section class="toAnimate"></section>
           </ul>
@@ -125,6 +145,10 @@
     ></script>
     <script src="/js/libs/bootstrap.js"></script>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script> -->
+
+    <script src="/js/OrderItem.js"></script>
+    <script src="/js/Order.js"></script>
+    <script src="/js/OrderManager.js"></script>
 
     <script src="/js/Confirmation.js"></script>
     <script src="/js/AddressForm.js"></script>

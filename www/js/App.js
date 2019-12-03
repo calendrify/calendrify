@@ -23,9 +23,10 @@ class App {
       "": new StartPage(),
       omoss: new AboutUs(),
       page404: new Page404(),
-      addressform: new AddressForm(this.cartManager),
+      addressform: null,
       confirmation: new Confirmation(),
-      cart: null // Make space for the cart, but we will create the object and update the table in loadProcucts
+      cart: null, // Make space for the cart, but we will create the object and update the table in loadProcucts
+      orders: new OrderManager()
     };
 
     // Listen to hash changes - rerender...
@@ -79,7 +80,17 @@ class App {
     this.cart = new Cart(this.cartManager, this.products);
     this.cart.renderInDropDown();
     this.cart.updateArticleCount();
-    this.routes["addressform"].setCart(this.cart);
+    // this.routes["addressform"].setCart(this.cart);
+
+    this.addressform = new AddressForm(
+      this.cartManager,
+      this.cart,
+      this.routes["orders"],
+      this.products
+    );
+
+    // Update the cart in the routing table
+    this.routes["addressform"] = this.addressform;
 
     // Set the cart reference in the products
     for (let p of this.products) p.setCart(this.cart);

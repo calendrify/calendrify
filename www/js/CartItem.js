@@ -15,6 +15,23 @@ class CartItem {
     });
   } // constructor
 
+  getRowTotal(products) {
+    let totalPrice = 0;
+    let totalSaved = 0;
+    let pItem = products.find(i => i.id == this.id);
+    if (pItem.discount) {
+      let totalUnits = 0;
+      let totalDiscountUnits = Math.floor(this.units / 3); //avrundar ner till närmsta heltal
+
+      totalUnits = this.units - totalDiscountUnits;
+      totalPrice += pItem.price * totalUnits;
+      totalSaved += pItem.price * totalDiscountUnits;
+    } else {
+      totalPrice += pItem.price * this.units;
+    }
+    return { totalPrice: totalPrice, totalSaved: totalSaved };
+  }
+
   getProduct(products) {
     return products.find(item => item.id == this.id);
   } // getProduct
@@ -67,7 +84,7 @@ class CartItem {
               this.id
             }"></i></button>
           </section>
-          <section class="col-10 offset-1 offset-md-0 col-md-4 col-lg-7 align-self-center">
+          <section class="col-10 offset-1 offset-md-0 col-md-4 col-lg-6 align-self-center">
             <p class="m-0" data-toggle="tooltip" title="${
               item.description
             }" data-placement="bottom">${item.name}</p>
@@ -105,7 +122,7 @@ class CartItem {
           <section class="col-1 col-md-2 col-lg-1 text-right align-self-center">
             <p class="m-0 discountParent">${this.sweNumFormatter.format(
               item.price
-            )}</p>`;
+            )} kr</p>`;
 
     // Is the item discounted (3-for-2): display an asterisk after the price
     if (item.discount) {
@@ -127,7 +144,7 @@ class CartItem {
       str += this.sweNumFormatter.format(item.price * this.units);
     } // else
 
-    str += /*html*/ `</p>
+    str += /*html*/ ` kr</p>
           </section>
         </section>
         <hr class="item-separator d-md-none"/>`;

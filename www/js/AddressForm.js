@@ -3,8 +3,12 @@ class AddressForm {
       I am an Adressform page.
       I display info about you.
     */
-  constructor(cartManager) {
+  constructor(cartManager, cart, orderManager, products) {
     this.cartManager = cartManager;
+    this.cart = cart;
+    this.orderManager = orderManager;
+    this.products = products;
+
     $("body").on("submit", "#order-form", e => {
       e.preventDefault(); // inte ladda om sidan..
       let data = {};
@@ -20,6 +24,17 @@ class AddressForm {
 
       address.addressInfo = JSON.stringify(data);
       address.save();
+
+      lastOrderId.lastOrderId = JSON.stringify(new Date().getTime());
+      lastOrderId.save();
+
+      orderManager.addOrder(
+        this.products,
+        cartManager.getItems(),
+        data,
+        this.cartManager.getTotalWeight(this.products) * 40
+      );
+
       this.cartManager.clearCart();
       this.cart.updateArticleCount();
       this.cart.renderInDropDown();
@@ -28,9 +43,9 @@ class AddressForm {
     });
   } // constructor
 
-  setCart(cart) {
-    this.cart = cart;
-  } // setCart
+  // setCart(cart) {
+  //   this.cart = cart;
+  // } // setCart
 
   render() {
     $("main").html(/*html*/ `

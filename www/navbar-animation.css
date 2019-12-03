@@ -1,5 +1,5 @@
 .animate-ul {
-  position: absolute !important;
+  position: relative !important;
 }
 
 .toAnimate {
@@ -31,6 +31,13 @@ li:nth-of-type(2):hover ~ .toAnimate {
 li:nth-of-type(3):hover ~ .toAnimate {
   left: 128px;
   width: 72px;
+  background: rgb(3, 99, 2);
+  box-shadow: 0 0 10px rgb(30, 255, 0);
+}
+
+li:nth-of-type(4):hover ~ .toAnimate {
+  left: 213px;
+  width: 100px;
   background: rgb(3, 99, 2);
   box-shadow: 0 0 10px rgb(30, 255, 0);
 }
