@@ -15,19 +15,26 @@ class OrderItem {
   render() {
     return /*html*/ `
     <section class="row">
-      <section class="col">
-        ${this.name}
+      <section class="col-md-4 col-12">
+        <span class="d-sm-inline d-md-none font-weight-bold">Produkt: </span>${
+          this.name
+        }
       </section>
-      <section class="col text-right">
-        ${this.units}
+      <section class="col-md-2 text-left text-md-right col-12">
+        <span class="d-sm-inline d-md-none font-weight-bold">Antal: </span>${
+          this.units
+        }
       </section>
-      <section class="col text-right">
+      <section class="col-md-2 text-left text-md-right col-12">
+      <span class="d-sm-inline d-md-none font-weight-bold">á pris: </span>
           ${this.sweNumFormatter.format(this.price)} kr
       </section>
-      <section class="col text-right">
+      <section class="col-md-2 text-left text-md-right col-12">
+      <span class="d-sm-inline d-md-none font-weight-bold">Delsumma: </span>
         ${this.sweNumFormatter.format(this.total.totalPrice)} kr
       </section>
-      <section class="col">
+      <section class="col-md-2 col-12">
+      <span class="d-sm-inline d-md-none font-weight-bold">Rabatt: </span>
         ${
           this.discount
             ? `Du sparade: ${this.sweNumFormatter.format(
@@ -36,6 +43,7 @@ class OrderItem {
             : "Ingen rabatt"
         }
       </section>
-    </section>`;
+      </section>
+      <hr class="d-sm-block d-md-none my-1"/>`;
   } // render
 } // class OrderIten
