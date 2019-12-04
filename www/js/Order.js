@@ -91,19 +91,19 @@ class Order {
               </section>
             </section>
             <section class="row font-weight-bold mt-2">
-              <section class="col d-none d-md-block">
+              <section class="col-md-4 d-none d-md-block">
                 <p class="my-0">Produkt</p>
               </section>
-                <section class="col d-none d-md-block">
+                <section class="col-md-2 d-none d-md-block">
                 <p class="my-0 text-right">Antal</p>
               </section>
-                <section class="col d-none d-md-block">
+                <section class="col-md-2 d-none d-md-block">
                 <p class="my-0 text-right">á pris</p>
               </section>
-                <section class="col d-none d-md-block">
+                <section class="col-md-2 d-none d-md-block">
                 <p class="my-0 text-right">Delsumma</p>
               </section>
-                <section class="col d-none d-md-block">
+                <section class="col-md-2 d-none d-md-block">
                 <p class="my-0">Rabatt</p>
               </section>
             </section>
