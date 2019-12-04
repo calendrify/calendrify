@@ -81,7 +81,7 @@ class CartItem {
             </span>
             <span>`;
 
-    // If the item is discounted and thre is one item left to get the discount,
+    // If the item is discounted and there is one item left to get the discount,
     // create a popupable element (a-tag)
     if (item.discount && this.units % 3 === 2) {
       str += /*html*/ `<a class="btn btn-primary btnPlus text-white" 
@@ -109,7 +109,7 @@ class CartItem {
 
     // Is the item discounted (3-for-2): display an asterisk after the price
     if (item.discount) {
-      str += /*html*/ `<span class='discounted'>*</span>`;
+      str += /*html*/ `<span class='discounted d-none d-md-block'>*</span>`;
     } // if item...
 
     str += /*html*/ `

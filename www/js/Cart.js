@@ -103,19 +103,22 @@ class Cart {
       </section>
       </section>
       <hr class="mt-0 mb-2 d-none d-md-block"/>
-      ${this.cartManager.items.map(item => item.render(this.products)).join("")}
-          `;
+      ${this.cartManager.items
+        .map(item => item.render(this.products))
+        .join("")}`;
+
       str += "<hr class='mt-2 mb-0'/>";
 
       if (str.includes("discounted")) {
         str +=
           /*html*/
           `<section class="row small">
-              <section class="col">
+              <section class="col d-none d-md-block">
                 <p class='mb-0'>* = Ingår i 3 för 2 erbjudandet</p>
               </section>
             </section>`;
-      }
+      } // if discounted...
+
       str += /*html*/ `<section class="row">
                     <section class="col-9 col-md-10 col-lg-11 text-right">
                       <p class='mb-1'>Summa</p>
@@ -127,7 +130,7 @@ class Cart {
                     </section>
                   </section>`;
 
-      str += `<section class="row">
+      str += /*html*/ `<section class="row">
          <section class="col-9 col-md-10 col-lg-11 text-right">
            <p class='mb-1'>Frakt</p>
          </section>
@@ -138,7 +141,7 @@ class Cart {
          </section>
        </section>`;
 
-      str += `<section class="row font-weight-bold">
+      str += /*html*/ `<section class="row font-weight-bold">
             <section class="col-9 col-md-10 col-lg-11 text-right">
               <p class='mb-1'>Totalsumma</p>
             </section>
@@ -187,25 +190,12 @@ class Cart {
     }
     $("main").html(str);
 
-    $('[data-toggle="popover"]').popover();
+    $('[data-toggle="popover"]').popover({ container: "body" });
     $('[data-toggle="popover"]').popover("show");
 
     $("body").on("click", function(e) {
-      $('[data-toggle="popover"]').each(function() {
-        //the 'is' for buttons that trigger popups
-        //the 'has' for icons within a button that triggers a popup
-        if (
-          !$(this).is(e.target) &&
-          $(this).has(e.target).length === 0 &&
-          $(".popover").has(e.target).length === 0
-        ) {
-          $(this).popover("dispose");
-          // $('[data-toggle="popover"]').popover();
-          // $('[data-toggle="popover"]').popover("show");
-        }
-      });
+      $('[data-toggle="popover"]').popover("hide");
     });
-    // $(".popover-dismiss").popover({ trigger: "focus" });
   } // render
 
   renderInDropDown() {
