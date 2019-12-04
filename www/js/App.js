@@ -47,14 +47,16 @@ class App {
     $("header nav a").removeClass("active");
     $(`header nav a[href="#${hashFirstPart}"]`).addClass("active");
 
-    // Deactivate tooltips (otherwise any active tooltip on the Kalendrar page will stay put until reload of the page)
+    // Deactivate tooltips and popovers (otherwise any active tooltip/opoover on a page will stay put until reload of the page)
     $('[data-toggle="tooltip"]').tooltip("dispose");
+    $('[data-toggle="popover"]').popover("dispose");
 
     // Render content
     pageToShow.render();
 
     // Activate tooltips
     $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="popover"]').popover({ container: "body" });
   } // changeRoute
 
   // An async function is allowed to await things
