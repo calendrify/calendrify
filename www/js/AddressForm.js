@@ -3,8 +3,12 @@ class AddressForm {
       I am an Adressform page.
       I display info about you.
     */
-  constructor(cartManager) {
+  constructor(cartManager, cart, orderManager, products) {
     this.cartManager = cartManager;
+    this.cart = cart;
+    this.orderManager = orderManager;
+    this.products = products;
+
     $("body").on("submit", "#order-form", e => {
       e.preventDefault(); // inte ladda om sidan..
       let data = {};
@@ -20,6 +24,17 @@ class AddressForm {
 
       address.addressInfo = JSON.stringify(data);
       address.save();
+
+      lastOrderId.lastOrderId = JSON.stringify(new Date().getTime());
+      lastOrderId.save();
+
+      orderManager.addOrder(
+        this.products,
+        cartManager.getItems(),
+        data,
+        this.cartManager.getTotalWeight(this.products) * 40
+      );
+
       this.cartManager.clearCart();
       this.cart.updateArticleCount();
       this.cart.renderInDropDown();
@@ -27,10 +42,6 @@ class AddressForm {
       window.location = "#confirmation";
     });
   } // constructor
-
-  setCart(cart) {
-    this.cart = cart;
-  } // setCart
 
   render() {
     $("main").html(/*html*/ `
@@ -44,18 +55,18 @@ class AddressForm {
         <div class="form-row">
           <div class="form-group col-12 col-md-3 offset-md-3">
             <label for="inputFirstName">Förnamn</label>
-            <input type="text" id="inputFirstName" class="form-control" placeholder="Förnamn">
+            <input type="text" id="inputFirstName" class="form-control" placeholder="Förnamn" required>
           </div>
           <div class="col-12 col-md-3">
             <label for="inputLastName">Efternamn</label>
-            <input type="text" id="inputLastName" class="form-control" placeholder="Efternamn">
+            <input type="text" id="inputLastName" class="form-control" placeholder="Efternamn" required>
           </div>
         </div>
         
         <div class="form-row">
           <div class="form-group col-12 col-md-6 offset-md-3">
             <label for="inputAddress">Adress</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="Storgatan 1234">
+            <input type="text" class="form-control" id="inputAddress" placeholder="Storgatan 1234" required>
           </div>
           <div class="form-group col-12 col-md-6 offset-md-3">
             <label for="inputAddress2">Adress 2</label>
@@ -66,18 +77,18 @@ class AddressForm {
         <div class="form-row">
           <div class="form-group col-4 col-md-2 offset-md-3">
             <label for="inputZip">Postnummer</label>
-            <input type="text" class="form-control" id="inputZip"  placeholder="123 12">
+            <input type="text" class="form-control" id="inputZip"  placeholder="123 12" required>
           </div>
           <div class="form-group col-8 col-md-4">
             <label for="inputCity">Postort</label>
-            <input type="text" class="form-control" id="inputCity"  placeholder="Malmö">
+            <input type="text" class="form-control" id="inputCity"  placeholder="Malmö" required>
           </div>
         </div>
         
         <div class="form-row">
           <div class="form-group col-12 col-md-6 offset-md-3">
             <label for="inputEmail4">Email</label>
-            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+            <input type="email" class="form-control" id="inputEmail4" placeholder="Email" required>
           </div>
         </div>
         
@@ -99,8 +110,7 @@ class AddressForm {
           </div>
         </div>
       </form>
-    </section>
-      `);
+    </section>`);
 
     // Get the address information from local storage. Must be done here since there is no HTML in the constructor
     const info = address.addressInfo;

@@ -81,7 +81,6 @@ class CartManager {
    */
   clearCart() {
     store.cartItems = null;
-    store.uniqueId = null;
     store.save();
     this.load();
   } // clearCart
@@ -118,18 +117,10 @@ class CartManager {
     let totalSaved = 0;
 
     for (let item of this.items) {
-      let pItem = products.find(i => i.id == item.id);
-      if (pItem.discount) {
-        let totalUnits = 0;
-        let totalDiscountUnits = Math.floor(item.units / 3); //avrundar ner till närmsta heltal
-
-        totalUnits = item.units - totalDiscountUnits;
-        totalPrice += pItem.price * totalUnits;
-        totalSaved += pItem.price * totalDiscountUnits;
-      } else {
-        totalPrice += pItem.price * item.units;
-      }
-    } //for...
+      let itemPrice = item.getRowTotal(products);
+      totalPrice += itemPrice.totalPrice;
+      totalSaved += itemPrice.totalSaved;
+    } //for..
 
     return { totalPrice: totalPrice, totalSaved: totalSaved };
   } // getTotalPrice

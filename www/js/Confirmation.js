@@ -20,7 +20,9 @@ class Confirmation {
         <div class="message-container"> 
         <i class="fas fa-check-circle"id="confirm" ></i>
         <h1>Tack för din beställning!</h1>
+        <p> Ditt ordernummer är: <a href ="#orders">${lastOrderId.lastOrderId}</a>
         <p>En bekräftelse har skickats till: ${email} </p>
+        <a class ="btn btn-primary" href="#">Startsida</a>
         </div>
         </div>
       </section>

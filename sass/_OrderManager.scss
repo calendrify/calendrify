@@ -1,0 +1,11 @@
+.btn-sort {
+  cursor: pointer;
+}
+
+.orderRow:nth-of-type(odd){
+  background-color: lighten($success, 30%);
+}
+
+.orderRow:nth-of-type(even){
+  background-color: $secondary;
+}

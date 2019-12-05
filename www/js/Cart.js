@@ -92,13 +92,13 @@ class Cart {
       // Notice the "loop" using the array map method
       str += /*html */ `
       <section class="row font-weight-bold">
-        <section class="col-10 col-md-4 offset-md-1 col-lg-7 offset-lg-1 d-none d-md-block">
+        <section class="text-primary col-lg-3 offset-md-2 d-none d-md-block">
           <p class="mb-1">Produkt</p>
         </section>
-        <section class="col-8 col-md-5 col-lg-3 text-right d-none d-md-block">
+        <section class="text-primary col-8 col-lg-4 text-right d-none d-md-block">
           <p class="mb-1">Pris</p>
         </section>
-        <section class="col-1 col-md-2 col-lg-1 text-right d-none d-md-block">
+        <section class="text-primary col-1 col-lg-2 text-right d-none d-md-block">
           <p class="mb-1">Summa</p>
       </section>
       </section>
@@ -107,83 +107,83 @@ class Cart {
         .map(item => item.render(this.products))
         .join("")}`;
 
-      str += "<hr class='mt-2 mb-0'/>";
+      str += "<hr class='mt-2 mb-0 d-none d-md-block'/>";
 
       if (str.includes("discounted")) {
         str +=
           /*html*/
           `<section class="row small">
-              <section class="col d-none d-md-block">
+              <section class="col">
                 <p class='mb-0'>* = Ingår i 3 för 2 erbjudandet</p>
               </section>
             </section>`;
       } // if discounted...
 
       str += /*html*/ `<section class="row">
-                    <section class="col-9 col-md-10 col-lg-11 text-right">
+                    <section class="col-6 col-lg-9 text-left text-lg-right">
                       <p class='mb-1'>Summa</p>
                     </section>
-                    <section class="col-3 col-md-2 col-lg-1 text-right">
+                    <section class="col-6 col-lg-2 text-right">
                       <p class='mb-1'>${this.sweNumFormatter.format(
                         this.cartManager.getTotalPrice(this.products).totalPrice
-                      )}</p>
+                      )} kr</p>
                     </section>
                   </section>`;
 
       str += /*html*/ `<section class="row">
-         <section class="col-9 col-md-10 col-lg-11 text-right">
+         <section class="col-6 col-lg-9 text-left text-lg-right">
            <p class='mb-1'>Frakt</p>
          </section>
-         <section class="col-3 col-md-2 col-lg-1 text-right">
+         <section class="col-6 col-lg-2 text-right">
            <p class='mb-1'>${this.sweNumFormatter.format(
              this.cartManager.getTotalWeight(this.products) * 40
-           )}</p>
+           )} kr</p>
          </section>
        </section>`;
 
       str += /*html*/ `<section class="row font-weight-bold">
-            <section class="col-9 col-md-10 col-lg-11 text-right">
+            <section class="col-6 col-lg-9 text-left text-lg-right">
               <p class='mb-1'>Totalsumma</p>
             </section>
-            <section class="col-3 col-md-2 col-lg-1 text-right">
+            <section class="col-6 col-lg-2 text-right">
               <p class='mb-1'>${this.sweNumFormatter.format(
                 this.cartManager.getTotalWeight(this.products) * 40 +
                   this.cartManager.getTotalPrice(this.products).totalPrice
-              )}</p>
+              )} kr</p>
             </section>
           </section>`;
 
       str += /*html*/ `<section class="row small">
-          <section class="col-9 col-md-10 col-lg-11 text-right">
+          <section class="col-6 col-lg-9 text-left text-lg-right">
             <p class='mb-1'>Varav moms</p>
           </section>
-          <section class="col-3 col-md-2 col-lg-1 text-right">
+          <section class="col-6 col-lg-2 text-right">
             <p class='mb-1'>${this.sweNumFormatter.format(
               (this.cartManager.getTotalWeight(this.products) * 40 +
                 this.cartManager.getTotalPrice(this.products).totalPrice) *
                 0.25
-            )}</p>
+            )} kr</p>
           </section>
           </section>`;
 
       if (str.includes("discounted")) {
         str += /*html*/ `<section class="row small">
-            <section class="col-11 text-right">
+            <section class="col-6 col-lg-9 text-left text-lg-right">
               <p class='mb-0'>Du sparar</p>
             </section>
-            <section class="col-1 text-right">
+            <section class="col-6 col-lg-2 text-right">
               <p class='mb-0'>${this.sweNumFormatter.format(
                 this.cartManager.getTotalPrice(this.products).totalSaved
-              )}</p>
+              )} kr</p>
             </section>
           </section>`;
       }
 
-      str += /*html*/ `<section class="row">
-            <section class="col-11 text-right">
+      str += /*html*/ `<section class="row mt-3">
+            <section class=" col-6 col-lg-9 text-left text-lg-right">
               <a class="btn btn-primary" href="#produkter">Fortsätt handla</a>
             </section>
-            <section class="col-1 text-right mx-0">
+            <section class="col-6 col-lg-2 text-right mx-0">
               <a href="#addressform"><button class="btn btn-primary" id="order-button">Beställ</button></a>
             </section>
           </section>`;
@@ -192,10 +192,10 @@ class Cart {
 
     $('[data-toggle="popover"]').popover({ container: "body" });
     $('[data-toggle="popover"]').popover("show");
-
+    /*
     $("body").on("click", function(e) {
       $('[data-toggle="popover"]').popover("hide");
-    });
+    }); */
   } // render
 
   renderInDropDown() {
@@ -208,7 +208,7 @@ class Cart {
           .map(item => item.renderInDropDown(this.products))
           .join("") +
           `<span class="cart-sum">Summa: </span><span class="cart-sum-right">${this.sweNumFormatter.format(
-            this.cartManager.getTotalPrice(this.products)
+            this.cartManager.getTotalPrice(this.products).totalPrice
           )} kr</span>` +
           ' <hr class="item-separator" /><li><a class="text-center" href="#cart"><button class="btn btn-primary w-100">Gå till varukorg</button></a></li>'
       );

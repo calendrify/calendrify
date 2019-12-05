@@ -111,10 +111,20 @@
 }
 
 .backDoor > a > p {
-  color: yellow;
+  color: $info;
+  font-weight: bold;
   font-family: inherit;
   word-wrap: break-word;
-  font-size: calc(75% * var(--size-factor));
+  font-size: calc(80% * var(--size-factor));
+}
+
+.clippy{
+  clip-path: polygon(14% 65%, 87% 65%, 90% 100%, 8% 100%);
+  background: black;
+}
+.clippy2{
+  clip-path: polygon(26% 50%, 74% 50%, 84% 100%, 16% 100%);
+  background-color: var(--bg-color);
 }
 
 .doorOpen {
@@ -159,8 +169,15 @@
 }
 
 main {
-  padding-top: 9vh;
+  padding-top: 14vh;
 }
+
+@media (min-width: 768px) {
+  main{
+    padding-top: 6vh;
+  }
+}
+
 
 footer {
   background: linear-gradient(
