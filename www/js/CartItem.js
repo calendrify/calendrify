@@ -78,18 +78,18 @@ class CartItem {
     const item = this.getProduct(products);
 
     let str = /*html*/ `
-        <section class="row cart-item my-1" id=${this.id}>
-          <section class="col-1 mb-1 mb-md-0">
+        <section class="row cart-item my-1 orderRow" id=${this.id}>
+          <section class="col-1 my-1 mb-md-0 offset-1 text-right offset-md-1">
             <button class="btn btn-primary btnDelete"><i class="far fa-trash-alt" id="delete-button-${
               this.id
             }"></i></button>
           </section>
-          <section class="col-10 offset-1 offset-md-0 col-md-4 col-lg-6 align-self-center">
+          <section class="col-8 font-weight-bold font-weight-md-bold text-center text-lg-left col-lg-3 align-self-center">
             <p class="m-0" data-toggle="tooltip" title="${
               item.description
             }" data-placement="bottom">${item.name}</p>
           </section>
-          <section class="col-7 col-md-3 col-lg-2">
+          <section class="col-12 col-lg-2 my-2 my-md-0 text-center">
             <span>
               <button class="btn btn-primary btnMinus"><i class="fas fa-minus"></i></button>
             </span>
@@ -119,20 +119,22 @@ class CartItem {
 
     str += /*html*/ `</span>
           </section>
-          <section class="col-1 col-md-2 col-lg-1 text-right align-self-center">
-            <p class="m-0 discountParent">${this.sweNumFormatter.format(
+          <section class="col-3 mx-auto mx-lg-0 col-lg-2 text-center text-lg-right align-self-center">
+            <span class="d-sm-inline d-lg-none">á pris: </span>
+            <span class="m-0 discountParent">${this.sweNumFormatter.format(
               item.price
-            )} kr</p>`;
+            )} kr</span>`;
 
     // Is the item discounted (3-for-2): display an asterisk after the price
     if (item.discount) {
-      str += /*html*/ `<span class='discounted d-none d-md-block'>*</span>`;
+      str += /*html*/ `<span class='discounted'>*</span>`;
     } // if item...
 
     str += /*html*/ `
           </section>
-          <section class="col-4 col-md-2 col-lg-1 text-right align-self-center">
-            <p class="font-weight-bold m-0">`;
+          <section class="col-12 col-lg-2 text-center text-lg-right align-self-center">
+           <span class="d-sm-inline d-lg-none">Summa: </span>
+            <span class="font-weight-bold m-0">`;
 
     // Add the total item price information
     // Is the item discounted (3-for-2): calculate the discount
@@ -144,7 +146,7 @@ class CartItem {
       str += this.sweNumFormatter.format(item.price * this.units);
     } // else
 
-    str += /*html*/ ` kr</p>
+    str += /*html*/ ` kr</span>
           </section>
         </section>
         <hr class="item-separator d-md-none"/>`;

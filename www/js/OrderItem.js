@@ -14,7 +14,7 @@ class OrderItem {
 
   render() {
     return /*html*/ `
-    <section class="row">
+    <section class="row orderRow">
       <section class="col-md-4 col-12">
         <span class="d-sm-inline d-md-none font-weight-bold">Produkt: </span>${
           this.name
@@ -44,6 +44,6 @@ class OrderItem {
         }
       </section>
       </section>
-      <hr class="d-sm-block d-md-none my-1"/>`;
+      `;
   } // render
 } // class OrderIten

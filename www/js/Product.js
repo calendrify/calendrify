@@ -85,7 +85,7 @@ class Product {
     // This is how I render myself in a list of products
     // (this method is called from a ProductList)
     let str = /*html*/ `
-      <div class="col-12 col-md-6 col-lg-4 mt-5">
+      <div class="col-10 mx-auto mx-md-0 col-md-6 col-lg-4 mt-5">
         <a href="#${this.slug}" class="item" data-toggle="tooltip" title="${this.description}" data-placement="left" >
           <h4>${this.name} ${this.price} kr</h4>
           <button id="buy-button-${this.id}" class="btn btn-primary my-2">Köp</button>
