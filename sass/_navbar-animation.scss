@@ -8,9 +8,11 @@
   background: rgba(255, 255, 255, 1);
   top: 30px;
   position: absolute;
+  transition: 0.5s ease;
   -webkit-transition: 0.5s ease;
 }
 li {
+  transition: 0.5s ease;
   -webkit-transition: 0.5s ease;
 }
 

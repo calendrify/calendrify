@@ -55,9 +55,10 @@ class App {
     // Render content
     pageToShow.render();
 
-    // Activate tooltips
+    // Activate tooltips and popovers
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover({ container: "body" });
+    $('[data-toggle="popover"]').popover("show");
   } // changeRoute
 
   // An async function is allowed to await things

@@ -56,7 +56,7 @@ class CartItem {
             alt="" width="50em"
           />
           <span class="item-info small">
-            <span>${item.name}</span>
+            <span class="font-weight-bold">${item.name}</span>
             <span>Antal: ${this.sweNumFormatter.format(this.units)}</span>
             <span>Pris/st: ${this.sweNumFormatter.format(item.price)} kr</span>
           </span>
@@ -69,6 +69,46 @@ class CartItem {
     </li>`;
   } // renderInDropDown
 
+  updateUnitsAndSum(products) {
+    let str;
+    const item = this.getProduct(products);
+
+    $("#units" + this.id).text(this.sweNumFormatter.format(this.units));
+
+    // If the item is discounted and there is one item left to get the 3-for-2 discount,
+    // add the popover attributes, otherwise remove them
+    if (item.discount && this.units % 3 === 2) {
+      $("#btn-plus" + this.id).attr("data-trigger", "focus");
+      $("#btn-plus" + this.id).attr("data-toggle", "popover");
+      $("#btn-plus" + this.id).attr("data-placement", "right");
+      // $("#btn-plus" + this.id).attr("title", "3-för-2 rabatt");
+      $("#btn-plus" + this.id).attr(
+        "data-content",
+        "Om du lägger till en kalender till så blir den gratis!"
+      );
+
+      $('[data-toggle="popover"]').popover();
+      $('[data-toggle="popover"]').popover("show");
+    } else {
+      $("#btn-plus" + this.id).removeAttr("data-toggle");
+      $("#btn-plus" + this.id).removeAttr("data-trigger");
+      $("#btn-plus" + this.id).removeAttr("data-content");
+      $("#btn-plus" + this.id).removeAttr("data-placement");
+    } //  else
+
+    // Add the total item price information
+    // Is the item discounted (3-for-2): calculate the discount
+    if (item.discount) {
+      let totalDiscountUnits = Math.floor(this.units / 3); //avrundar ner till närmsta heltal
+      let totalUnits = this.units - totalDiscountUnits;
+      str = this.sweNumFormatter.format(item.price * totalUnits);
+    } else {
+      str = this.sweNumFormatter.format(item.price * this.units);
+    } // else
+
+    $("#totsum" + this.id).text(str + " kr");
+  } // updateUnitsAndSum
+
   /**
    * Renders the cart item in the cart drop down list located in the menu
    * @param {*} products an array of all the products, so we can look up the product info
@@ -79,7 +119,7 @@ class CartItem {
 
     let str = /*html*/ `
         <section class="row cart-item my-1 orderRow" id=${this.id}>
-          <section class="col-1 my-1 mb-md-0 offset-1 text-right offset-md-1">
+          <section class="col-1 my-1 mb-md-1 offset-1 text-right offset-md-1 align-self-center">
             <button class="btn btn-primary btnDelete"><i class="far fa-trash-alt" id="delete-button-${
               this.id
             }"></i></button>
@@ -89,11 +129,11 @@ class CartItem {
               item.description
             }" data-placement="bottom">${item.name}</p>
           </section>
-          <section class="col-12 col-lg-2 my-2 my-md-0 text-center">
+          <section class="col-12 col-lg-1 px-lg-0 offset-lg-1 my-2 my-md-2 text-center d-flex justify-content-center justify-content-lg-between align-items-center">
             <span>
               <button class="btn btn-primary btnMinus"><i class="fas fa-minus"></i></button>
             </span>
-            <span class="font-weight-bold px-1">
+            <span class="font-weight-bold px-1" id='units${this.id}'>
               ${this.sweNumFormatter.format(this.units)}
             </span>
             <span>`;
@@ -102,6 +142,7 @@ class CartItem {
     // create a popupable element (a-tag)
     if (item.discount && this.units % 3 === 2) {
       str += /*html*/ `<a class="btn btn-primary btnPlus text-white" 
+                  id='btn-plus${this.id}'
                   role="button" 
                   tabindex="0"
                   data-trigger="focus"
@@ -112,14 +153,17 @@ class CartItem {
                 <i class="fas fa-plus"></i>
               </a>`;
     } else {
-      str += /*html*/ `<button class="btn btn-primary btnPlus">  
+      str += /*html*/ `<a class="btn btn-primary btnPlus text-white" 
+                  id='btn-plus${this.id}'
+                  title="3-för-2 rabatt"
+                  role="button">  
                 <i class="fas fa-plus"></i>
-              </button>`;
+              </a>`;
     } //  else
 
     str += /*html*/ `</span>
           </section>
-          <section class="col-3 mx-auto mx-lg-0 col-lg-2 text-center text-lg-right align-self-center">
+          <section class="col-4 mx-auto mx-lg-0 col-lg-2 text-center text-lg-right align-self-center">
             <span class="d-sm-inline d-lg-none">á pris: </span>
             <span class="m-0 discountParent">${this.sweNumFormatter.format(
               item.price
@@ -134,7 +178,7 @@ class CartItem {
           </section>
           <section class="col-12 col-lg-2 text-center text-lg-right align-self-center">
            <span class="d-sm-inline d-lg-none">Summa: </span>
-            <span class="font-weight-bold m-0">`;
+            <span class="font-weight-bold m-0" id='totsum${this.id}'>`;
 
     // Add the total item price information
     // Is the item discounted (3-for-2): calculate the discount
