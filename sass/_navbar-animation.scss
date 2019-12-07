@@ -8,9 +8,11 @@
   background: rgba(255, 255, 255, 1);
   top: 30px;
   position: absolute;
+  transition: 0.5s ease;
   -webkit-transition: 0.5s ease;
 }
 li {
+  transition: 0.5s ease;
   -webkit-transition: 0.5s ease;
 }
 
@@ -43,18 +45,23 @@ li:nth-of-type(4):hover ~ .toAnimate {
 
 @media (min-width: 992px) {
   li:nth-of-type(1):hover ~ .toAnimate{
+    top: 2rem;
     left: 6px;
   }
 
   li:nth-of-type(2):hover ~ .toAnimate{
+    top: 2rem;
     left: 57px;
   }
 
   li:nth-of-type(3):hover ~ .toAnimate{
+    top: 2rem;
     left: 128px;
   }
 
   li:nth-of-type(4):hover ~ .toAnimate {
+    top: 2rem;
     left: 213px;
   }
 }
+

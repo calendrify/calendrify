@@ -51,8 +51,8 @@ ul.dropdown-cart li .item-right button {
   margin-top: 1em;
 }
 
-.item-left img{
-  margin-top:0.5em;
+.item-left img {
+  margin-top: 0.5em;
 }
 
 .container-prod-img {
@@ -86,11 +86,22 @@ ul.dropdown-cart li .item-right button {
   margin-right: 10px;
 }
 
-.cart-sum, .cart-sum-right{
+.cart-sum,
+.cart-sum-right {
   padding: 2px 10px;
-  font-weight: bold; 
+  font-weight: bold;
 }
 
-.cart-sum-right{
-  float:right;
+.cart-sum-right {
+  float: right;
+}
+
+#cart-menu p.shipping {
+  padding: 0 10px;
+  white-space: nowrap;
+}
+
+.discounted {
+  font-weight: bold;
+  color: $primary;
 }
