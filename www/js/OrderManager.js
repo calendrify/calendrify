@@ -69,7 +69,7 @@ class OrderManager {
     let str = /*html*/ `
     <section class="row justify-space-between align-items-center">
      <section class="col">
-      <h1 class="text-primary">Orderhistorik</h1>
+      <h1 class="text-primary ml-3">Orderhistorik</h1>
          </section>
         <section class="col text-right">
         <h3 class="d-inline">${
