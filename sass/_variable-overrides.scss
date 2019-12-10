@@ -1,15 +1,18 @@
-$primary:        #ec244c;
-$secondary:      #ffffff;
-$success:        #2b5c3b;
-$info:           #619c78;
-$warning:        #b4d4c1;
-$danger:         red;
-$light:          #265439;
+$primary:                    #ec244c;
+$secondary:                  #ffffff;
+$success:                    #2b5c3b;
+$info:                       #619c78;
+$warning:                    #b4d4c1;
+$danger:                     red;
+$light:                      #265439;
 
-$tooltip-bg:      $primary !default;
-$tooltip-opacity: .9 !default;
+$tooltip-bg:                   $primary !default;
+$tooltip-opacity:             .9 !default;
 
 $input-btn-padding-x:         .50rem !default;
 $input-btn-padding-y:         .25rem !default;
+
+$custom-select-color:         $primary !default;
+$custom-select-border-color:  $primary !default;
 
 $font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Nunito", sans-serif;

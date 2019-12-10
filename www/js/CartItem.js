@@ -30,7 +30,7 @@ class CartItem {
       totalPrice += pItem.price * this.units;
     }
     return { totalPrice: totalPrice, totalSaved: totalSaved };
-  }
+  } // getRowTotal
 
   getProduct(products) {
     return products.find(item => item.id == this.id);

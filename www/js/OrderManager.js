@@ -68,10 +68,10 @@ class OrderManager {
   render() {
     let str = /*html*/ `
     <section class="row justify-space-between align-items-center">
-     <section class="col">
-      <h1 class="text-primary ml-3">Orderhistorik</h1>
-         </section>
-        <section class="col text-right">
+      <section class="col">
+        <h1 class="text-primary ml-3">Orderhistorik</h1>
+      </section>
+      <section class="col text-right">
         <h3 class="d-inline">${
           this.sortAscending ? "Äldst" : "Senast"
         } först</h3> 

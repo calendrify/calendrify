@@ -25,7 +25,7 @@ class App {
       page404: new Page404(),
       addressform: null,
       confirmation: new Confirmation(),
-      cart: null, // Make space for the cart, but we will create the object and update the table in loadProcucts
+      cart: this.cartManager,
       orders: new OrderManager()
     };
 
@@ -77,29 +77,25 @@ class App {
       this.routes[product.slug] = product;
     } // for...
 
-    // Create the cart. It needs a a reference to the products-list,
-    // so it can't be created before the list is created in loadProducts
-    // Update the carts drop down menu and item count in the  nav-bar
-    this.cart = new Cart(this.cartManager, this.products);
-    this.cart.renderInDropDown();
-    this.cart.updateArticleCount();
-    // this.routes["addressform"].setCart(this.cart);
+    // Update the cart's drop down menu and item count in the  nav-bar
+    this.cartManager.setProducts(this.products);
+    this.cartManager.renderInDropDown();
+    this.cartManager.updateArticleCount();
 
     this.addressform = new AddressForm(
       this.cartManager,
-      this.cart,
       this.routes["orders"],
       this.products
     );
 
-    // Update the cart in the routing table
+    // Update the address form in the routing table
     this.routes["addressform"] = this.addressform;
 
     // Set the cart reference in the products
-    for (let p of this.products) p.setCart(this.cart);
+    // for (let p of this.products) p.setCart(this.cart);
 
     // Update the cart in the routing table
-    this.routes["cart"] = this.cart;
+    // this.routes["cart"] = this.cart;
 
     // Make a new product list with all of our products
     // and add it to our routes

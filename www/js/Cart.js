@@ -1,155 +1,133 @@
 class Cart {
-  constructor(cartManager, products) {
-    // Save a reference to the product list and cart manager
-    this.products = products;
-    this.cartManager = cartManager;
-
-    this.addButtonListeners();
+  constructor(name, items) {
+    this.name = name;
+    this.cartItems = [];
 
     // Create a number formatter
     this.sweNumFormatter = new Intl.NumberFormat("sv-SE", {
       maximumFractionDigits: 0
     });
+
+    // Create the cart items
+    if (items) {
+      for (let item of items) {
+        this.cartItems.push(new CartItem(item.id, item.units));
+      } //for  item...
+    } // if items...
   } // constructor
 
-  getCartItemId(target) {
-    return target.closest(".cart-item").attr("id");
-  } // getCartItemId
+  /**
+   * Adds a cart item to the current cart.
+   * If the item already exist, increase the item count instead
+   * @param {*} item A Product-object to store.
+   * @param {*} units How many units are being bought
+   */
+  add(item, units) {
+    // Check to see if the cart item already exists in the cart
+    let cartItem = this.getItem(item.id);
 
-  addButtonListeners() {
-    $("body").on("click", e => {
-      let id = this.getCartItemId($(e.target));
-      let cartItem = this.cartManager.get(id);
+    // If it doesn't, create a new cart item and add it to the list
+    if (!cartItem) {
+      let cItem = new CartItem(item.id, units);
 
-      if (
-        e.target.className.includes("btnPlus") ||
-        $(e.target)
-          .parent()
-          .hasClass("btnPlus")
-      ) {
-        $('[data-toggle="popover"]').popover("dispose");
+      this.cartItems.push(cItem);
+    } else {
+      // Oh, it does exist... increase the unit count then
+      cartItem.units++;
+    } // else
+  } // add
 
-        cartItem.units++;
-        this.cartManager.updateItem(id, cartItem);
+  clearCart() {
+    this.cartItems = [];
+  } // clearCart
 
-        cartItem.updateUnitsAndSum(this.products);
-        this.updateTotals();
+  getItems() {
+    return this.cartItems;
+  } // getItems
 
-        this.renderInDropDown();
-        this.updateArticleCount();
+  getItem(prodNr) {
+    return this.cartItems.find(i => i.id == prodNr);
+  } // getItem
 
-        return;
-      } // btnPlus
+  updateItem(prodNr, item) {
+    let index = this.cartItems.findIndex(i => i.id == prodNr);
+    this.cartItems[index] = item;
+  } // updateItem
 
-      if (
-        e.target.className.includes("btnMinus") ||
-        $(e.target)
-          .parent()
-          .hasClass("btnMinus")
-      ) {
-        $('[data-toggle="popover"]').popover("dispose");
+  removeItem(prodNr) {
+    const index = this.cartItems.findIndex(i => i.id == prodNr);
+    this.cartItems.splice(index, 1);
+  } // removeItem
 
-        // Does the cart item have any items at more than one unit?
-        if (cartItem.units > 1) {
-          cartItem.units--;
-          this.cartManager.updateItem(id, cartItem);
+  /**
+   * Returns the total number of items in the cart, and NOT the unique products
+   * @returns {number} Number of total items.
+   */
+  getNumberOfItems() {
+    let itemCount = 0;
+    for (let item of this.cartItems) itemCount += item.units;
+    return itemCount;
+  } // getNumberOfItems
 
-          cartItem.updateUnitsAndSum(this.products);
-          this.updateTotals();
+  /**
+   * Returns the total weight for all items in the cart
+   * @returns {number} The total weight of all of the items.
+   */
+  getTotalWeight(products) {
+    let totalWeight = 0;
+    for (let item of this.cartItems) {
+      let pItem = products.find(i => i.id == item.id);
+      totalWeight += pItem.weight * item.units;
+    } // for item...
 
-          this.renderInDropDown();
-          this.updateArticleCount();
-        } // if cartItem...
+    return totalWeight;
+  } //getTotalWeight
 
-        return;
-      } // btnMinus
+  /**
+   * Returns total price  and total amount saved with 3 for 2 discount without shipping costs
+   * @returns {object} The total price with discount and total saved amount for all the items.
+   */
+  getTotalPrice(products) {
+    let totalPrice = 0;
+    let totalSaved = 0;
 
-      if (
-        $(e.target)
-          .parent()
-          .hasClass("btnDelete")
-      ) {
-        this.cartManager.removeItem(id);
-        this.render();
-        this.renderInDropDown();
-        this.updateArticleCount();
+    for (let item of this.cartItems) {
+      let itemPrice = item.getRowTotal(products);
+      totalPrice += itemPrice.totalPrice;
+      totalSaved += itemPrice.totalSaved;
+    } //for item...
 
-        return;
-      } // btnDelete
+    return { totalPrice: totalPrice, totalSaved: totalSaved };
+  } // getTotalPrice
 
-      if (
-        $(e.target)
-          .parent()
-          .hasClass("trash-button")
-      ) {
-        e.preventDefault();
+  /**
+   * Returns the value associated with a given key.
+   * @param {*} prodNr Product id of item to retrieve.
+   * @returns {CartItem} Found value or null.
+   */
+  get(prodNr) {
+    return this.cartItems.find(item => item.id == prodNr);
+  } // get
 
-        this.cartManager.removeItem(id);
+  updateTotals(products) {
+    let totPrice = this.getTotalPrice(products);
+    let totWeight = this.getTotalWeight(products);
+    let shipping = totWeight * 40;
+    let grandTot = shipping + totPrice.totalPrice;
 
-        this.renderInDropDown();
-        this.updateArticleCount();
-
-        // Are we on the cart page? If so, re-render it
-        if (
-          $(location)
-            .attr("href")
-            .includes("#cart")
-        )
-          this.render();
-
-        return;
-      } // trash-button
-
-      $('[data-toggle="popover"]').each(function() {
-        $(this).popover("dispose");
-      });
-    });
-  } // addButtonListeners
-
-  updateTotals() {
-    $("#sum").text(
-      this.sweNumFormatter.format(
-        this.cartManager.getTotalPrice(this.products).totalPrice
-      ) + " kr"
-    );
-
-    $("#shipping").text(
-      this.sweNumFormatter.format(
-        this.cartManager.getTotalWeight(this.products) * 40
-      ) + " kr"
-    );
-
-    $("#grand-total").text(
-      this.sweNumFormatter.format(
-        this.cartManager.getTotalWeight(this.products) * 40 +
-          this.cartManager.getTotalPrice(this.products).totalPrice
-      ) + " kr"
-    );
-
-    $("#vat").text(
-      this.sweNumFormatter.format(
-        (this.cartManager.getTotalWeight(this.products) * 40 +
-          this.cartManager.getTotalPrice(this.products).totalPrice) *
-          0.25
-      ) + " kr"
-    );
-
-    $("#saved").text(
-      this.cartManager.getTotalPrice(this.products).totalSaved + " kr"
-    );
+    $("#sum").text(this.sweNumFormatter.format(totPrice.totalPrice) + " kr");
+    $("#shipping").text(this.sweNumFormatter.format(shipping) + " kr");
+    $("#grand-total").text(this.sweNumFormatter.format(grandTot) + " kr");
+    $("#vat").text(this.sweNumFormatter.format(grandTot * 0.25) + " kr");
+    $("#saved").text(totPrice.totalSaved + " kr");
   } // updateTotals
 
-  render() {
-    // Render all items in the cart to a web page
-    let str = /*html*/ `
-      <section class="row">
-        <div class="col">
-          <h1 class="text-primary">Varukorg</h1>
-        </div>
-      </section>`;
+  render(products) {
+    // Render all items in the current cart to a web page
+    let str = "";
 
-    if (this.cartManager.items.length === 0) {
-      str += "<div>Kundvagnen är tom!</div>";
+    if (this.cartItems.length === 0) {
+      str += "<div>Varukorgen är tom!</div>";
     } else {
       // Notice the "loop" using the array map method
       str += /*html */ `
@@ -165,9 +143,7 @@ class Cart {
       </section>
       </section>
       <hr class="mt-0 mb-2 d-none d-md-block"/>
-      ${this.cartManager.items
-        .map(item => item.render(this.products))
-        .join("")}`;
+      ${this.cartItems.map(item => item.render(products)).join("")}`;
 
       str += "<hr class='mt-2 mb-0 d-none d-md-block'/>";
 
@@ -228,47 +204,64 @@ class Cart {
           </section>`;
       }
 
-      str += /*html*/ `<section class="row mt-3">
-            <section class=" col-6 col-lg-9 text-left text-lg-right">
+      let emptyString = this.name === "default" ? "Töm" : "Radera";
+
+      str +=
+        // <form id="cart-form">
+        /*html*/
+        `<section class="row mt-1">
+            <section class="col-6 mt-4 mt-lg-0 col-lg-2 order-3 order-lg-1">
+                <button class="btn btn-primary btn-save-cart" href="">Spara varukorg</button>
+            </section>
+            <section class="col-6 mt-4 mt-lg-0 col-lg-3 w-100 pl-0 order-4 order-lg-2">
+                <input type="text" id="input-cart-name" class="form-control" placeholder="Ange namn på varukorg" required>
+            </section>
+            <section class="col-12 mt-1 mt-lg-0 col-lg-2 text-left text-lg-right order-5 order-lg-3">
+                <button class="btn btn-primary btn-empty-cart" href="">${emptyString} varukorg</button>
+            </section>
+            <section class="col-6 col-lg-2 text-left text-lg-right order-1 order-lg-4">
               <a class="btn btn-primary" href="#produkter">Fortsätt handla</a>
             </section>
-            <section class="col-6 col-lg-2 text-right mx-0">
-              <a href="#addressform"><button class="btn btn-primary" id="order-button">Beställ</button></a>
+            <section class="col-6 col-lg-2 text-right mx-0 order-2 order-lg-5">
+               <a href="#addressform"><button class="btn btn-primary" id="order-button">Beställ</button></a>
             </section>
           </section>`;
-    }
-    $("main").html(str);
+    } // else
 
-    this.updateTotals();
+    return str;
   } // render
 
-  renderInDropDown() {
-    if (this.cartManager.items.length === 0) {
-      $("#cart-menu").html("<div class='text-center'>Kundvagnen är tom!</div>");
+  renderInDropDown(products) {
+    let str = /*html*/ `
+        <p class="mt-1 mb-0 text-center text-primary">
+          Aktiv varukorg: <span class="font-italic">${this.name}</span>
+        </p>`;
+
+    if (this.cartItems.length === 0) {
+      $("#cart-menu").html(
+        str +
+          /*html*/
+          `<li><a class="text-center" href="#produkter"><button class="btn btn-primary w-100">Varukorgen är tom!</button></a></li>`
+      );
     } else {
       $('[data-toggle="tooltip"]').tooltip("dispose");
       $("#cart-menu").html(
-        this.cartManager.items
-          .map(item => item.renderInDropDown(this.products))
-          .join("") +
+        str +
+          this.cartItems.map(item => item.renderInDropDown(products)).join("") +
           `<span class="cart-sum">Summa: </span><span class="cart-sum-right">${this.sweNumFormatter.format(
-            this.cartManager.getTotalPrice(this.products).totalPrice
+            this.getTotalPrice(products).totalPrice
           )} kr</span>` +
-          '<p class="small my-0 shipping">Priset ink. moms, ex. frakt</p>' +
-          '<hr class="item-separator" /><li><a class="text-center" href="#cart"><button class="btn btn-primary w-100">Gå till varukorg</button></a></li>'
+          /*html*/ `
+          <p class="small my-0 shipping">Priset ink. moms, ex. frakt</p>
+          <hr class="item-separator" />
+          <li>
+            <a class="text-center" href="#cart">
+              <button class="btn btn-primary w-100">Gå till varukorg</button>
+            </a>
+          </li>`
       );
 
       $('[data-toggle="tooltip"]').tooltip();
     } // else
   } // renderInDropDown
-
-  /**
-   * Updates the text containing the number of items in the cart
-   * @returns {number} Number of total items in the cart.
-   */
-  updateArticleCount() {
-    $("#articles-in-cart").text(
-      " " + this.sweNumFormatter.format(this.cartManager.getNumberOfItems())
-    );
-  } // updateArticleCount
 } // Cart

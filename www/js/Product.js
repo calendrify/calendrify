@@ -13,9 +13,14 @@ class Product {
     Object.assign(this, data);
 
     this.cartManager = cartManager;
+
     // I add listeners to my buy-button(s)
     this.addBuyButtonListener();
   }
+
+  setCartManager(cartManager) {
+    this.cartManager = cartManager;
+  } // setCartManager
 
   addBuyButtonListener() {
     // this a delegated event handler:
@@ -35,18 +40,11 @@ class Product {
       // add me to that cart
 
       this.cartManager.add(this, 1);
-      this.cart.updateArticleCount();
-      this.cart.renderInDropDown();
+      this.cartManager.updateArticleCount();
+      this.cartManager.renderInDropDown();
       this.animate();
     });
   } // addBuyButtonListener
-
-  /**
-   * Set the associated cart
-   */
-  setCart(cart) {
-    this.cart = cart;
-  } // setCart
 
   render() {
     // This is how I render myself on a product-detail page
@@ -76,9 +74,6 @@ class Product {
       </section>
     `;
     $("main").html(str);
-
-    // $('[data-toggle="tooltip"]').tooltip();
-    // $(document.body).tooltip({ selector: "[title]" });
   } // render
 
   renderInList() {

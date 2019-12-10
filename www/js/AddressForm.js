@@ -3,9 +3,8 @@ class AddressForm {
       I am an Adressform page.
       I display info about you.
     */
-  constructor(cartManager, cart, orderManager, products) {
+  constructor(cartManager, orderManager, products) {
     this.cartManager = cartManager;
-    this.cart = cart;
     this.orderManager = orderManager;
     this.products = products;
 
@@ -30,14 +29,17 @@ class AddressForm {
 
       orderManager.addOrder(
         this.products,
-        cartManager.getItems(),
+        this.cartManager.getCurrentCartItems(),
         data,
-        this.cartManager.getTotalWeight(this.products) * 40
+        this.cartManager.getTotalWeight() * 40
       );
 
-      this.cartManager.clearCart();
-      this.cart.updateArticleCount();
-      this.cart.renderInDropDown();
+      // Should the cart be deleted (emptied in the case of the default (first) cart)
+      if ($("#do-remove-cart:checked").val()) {
+        this.cartManager.clearCurrentCart();
+        this.cartManager.updateArticleCount();
+        this.cartManager.renderInDropDown();
+      } // delete cart after ordering
 
       window.location = "#confirmation";
     });
@@ -93,11 +95,22 @@ class AddressForm {
         </div>
         
         <div class="row">
-          <div class="form-group col-12 col-md-6 offset-md-3">
+          <div class="form-group col-12 col-md-6 offset-md-3 mb-1">
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="gridCheck">
               <label class="form-check-label" for="gridCheck">
                 Jag godkänner att min e-mail kan användas i marknadsföringssyfte
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-12 col-md-6 offset-md-3 mb-1">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="do-remove-cart">
+              <label class="form-check-label" for="do-remove-cart">
+                Radera den här varukorgen ('<span class=font-italic>${this.cartManager.getCurrentCartName()}</span>') efter beställning
               </label>
             </div>
           </div>
