@@ -17,38 +17,19 @@ class Cart {
   } // getCartItemId
 
   addButtonListeners() {
-    $("body").on("click", function(e) {
-      $('[data-toggle="popover"]').each(function() {
-        //the 'is' for buttons that trigger popups
-        //the 'has' for icons within a button that triggers a popup
-        if (
-          !$(this).is(e.target) &&
-          $(this).has(e.target).length === 0 &&
-          $(".popover").has(e.target).length === 0
-        ) {
-          $(this).popover("dispose");
-        }
-      });
-    });
-
-    // Delete the item
-    $("body").on("click", ".btnDelete", e => {
-      let id = this.getCartItemId($(e.target));
-
-      this.cartManager.removeItem(id);
-      this.render();
-      this.renderInDropDown();
-      this.updateArticleCount();
-    });
-
-    // Decrease the number of units
-    $("body").on("click", ".btnMinus", e => {
+    $("body").on("click", e => {
       let id = this.getCartItemId($(e.target));
       let cartItem = this.cartManager.get(id);
 
-      // Does the cart item have any items at more than one unit?
-      if (cartItem.units > 1) {
-        cartItem.units--;
+      if (
+        e.target.className.includes("btnPlus") ||
+        $(e.target)
+          .parent()
+          .hasClass("btnPlus")
+      ) {
+        $('[data-toggle="popover"]').popover("dispose");
+
+        cartItem.units++;
         this.cartManager.updateItem(id, cartItem);
 
         cartItem.updateUnitsAndSum(this.products);
@@ -56,40 +37,72 @@ class Cart {
 
         this.renderInDropDown();
         this.updateArticleCount();
-      } // if cartItem...
-    });
 
-    // Add another unit to the item
-    $("body").on("click", ".btnPlus", e => {
-      let id = this.getCartItemId($(e.target));
+        return;
+      } // btnPlus
 
-      let cartItem = this.cartManager.get(id);
-      cartItem.units++;
-      this.cartManager.updateItem(id, cartItem);
-
-      cartItem.updateUnitsAndSum(this.products);
-      this.updateTotals();
-
-      this.renderInDropDown();
-      this.updateArticleCount();
-    });
-
-    $("body").on("click", ".trash-button", e => {
-      e.preventDefault();
-
-      let id = this.getCartItemId($(e.target));
-      this.cartManager.removeItem(id);
-
-      this.renderInDropDown();
-      this.updateArticleCount();
-
-      // Are we on the cart page? If so, re-render it
       if (
-        $(location)
-          .attr("href")
-          .includes("#cart")
-      )
+        e.target.className.includes("btnMinus") ||
+        $(e.target)
+          .parent()
+          .hasClass("btnMinus")
+      ) {
+        $('[data-toggle="popover"]').popover("dispose");
+
+        // Does the cart item have any items at more than one unit?
+        if (cartItem.units > 1) {
+          cartItem.units--;
+          this.cartManager.updateItem(id, cartItem);
+
+          cartItem.updateUnitsAndSum(this.products);
+          this.updateTotals();
+
+          this.renderInDropDown();
+          this.updateArticleCount();
+        } // if cartItem...
+
+        return;
+      } // btnMinus
+
+      if (
+        $(e.target)
+          .parent()
+          .hasClass("btnDelete")
+      ) {
+        this.cartManager.removeItem(id);
         this.render();
+        this.renderInDropDown();
+        this.updateArticleCount();
+
+        return;
+      } // btnDelete
+
+      if (
+        $(e.target)
+          .parent()
+          .hasClass("trash-button")
+      ) {
+        e.preventDefault();
+
+        this.cartManager.removeItem(id);
+
+        this.renderInDropDown();
+        this.updateArticleCount();
+
+        // Are we on the cart page? If so, re-render it
+        if (
+          $(location)
+            .attr("href")
+            .includes("#cart")
+        )
+          this.render();
+
+        return;
+      } // trash-button
+
+      $('[data-toggle="popover"]').each(function() {
+        $(this).popover("dispose");
+      });
     });
   } // addButtonListeners
 
@@ -173,9 +186,7 @@ class Cart {
                       <p class='mb-1'>Summa</p>
                     </section>
                     <section class="col-6 col-lg-2 text-right">
-                      <p class='mb-1' id='sum'>${this.sweNumFormatter.format(
-                        this.cartManager.getTotalPrice(this.products).totalPrice
-                      )} kr</p>
+                      <p class='mb-1' id='sum'></p>
                     </section>
                   </section>`;
 
@@ -184,9 +195,7 @@ class Cart {
            <p class='mb-1'>Frakt</p>
          </section>
          <section class="col-6 col-lg-2 text-right">
-           <p class='mb-1' id='shipping'>${this.sweNumFormatter.format(
-             this.cartManager.getTotalWeight(this.products) * 40
-           )} kr</p>
+           <p class='mb-1' id='shipping'></p>
          </section>
        </section>`;
 
@@ -195,10 +204,7 @@ class Cart {
               <p class='mb-1'>Totalsumma</p>
             </section>
             <section class="col-6 col-lg-2 text-right">
-              <p class='mb-1' id='grand-total'>${this.sweNumFormatter.format(
-                this.cartManager.getTotalWeight(this.products) * 40 +
-                  this.cartManager.getTotalPrice(this.products).totalPrice
-              )} kr</p>
+              <p class='mb-1' id='grand-total'></p>
             </section>
           </section>`;
 
@@ -207,11 +213,7 @@ class Cart {
             <p class='mb-1'>Varav moms</p>
           </section>
           <section class="col-6 col-lg-2 text-right">
-            <p class='mb-1' id='vat'>${this.sweNumFormatter.format(
-              (this.cartManager.getTotalWeight(this.products) * 40 +
-                this.cartManager.getTotalPrice(this.products).totalPrice) *
-                0.25
-            )} kr</p>
+            <p class='mb-1' id='vat'></p>
           </section>
           </section>`;
 
@@ -221,9 +223,7 @@ class Cart {
               <p class='mb-0'>Du sparar</p>
             </section>
             <section class="col-6 col-lg-2 text-right">
-              <p class='mb-0' id='saved'>${this.sweNumFormatter.format(
-                this.cartManager.getTotalPrice(this.products).totalSaved
-              )} kr</p>
+              <p class='mb-0' id='saved'></p>
             </section>
           </section>`;
       }
@@ -238,6 +238,8 @@ class Cart {
           </section>`;
     }
     $("main").html(str);
+
+    this.updateTotals();
   } // render
 
   renderInDropDown() {

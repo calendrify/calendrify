@@ -47,6 +47,7 @@ class CartItem {
 
     return /*html*/ `
     <li class= "cart-item" id=${this.id}>
+      <a href="#${item.slug}">
       <span class="item" data-toggle="tooltip" title="${
         item.description
       }" data-placement="left">
@@ -66,6 +67,7 @@ class CartItem {
         </span>
       </span>
       <hr class="item-separator"/>
+      </a>
     </li>`;
   } // renderInDropDown
 
@@ -127,7 +129,9 @@ class CartItem {
           <section class="col-8 font-weight-bold font-weight-md-bold text-center text-lg-left col-lg-3 align-self-center">
             <p class="m-0" data-toggle="tooltip" title="${
               item.description
-            }" data-placement="bottom">${item.name}</p>
+            }" data-placement="bottom"><a href="#${item.slug}">${
+      item.name
+    }</a></p>
           </section>
           <section class="col-12 col-lg-1 px-lg-0 offset-lg-1 my-2 my-md-2 text-center d-flex justify-content-center justify-content-lg-between align-items-center">
             <span>

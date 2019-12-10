@@ -71,7 +71,7 @@ class Order {
     }" data-parent="#accordion">
           <div class="card-body">
             <div class="row">
-              <h2 class="text-primary">Adressinformation</h2>
+              <h2 class="text-primary ml-3">Adressinformation</h2>
             </div>
             <section class="row">
               <section class="col-12">
