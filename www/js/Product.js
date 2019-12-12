@@ -66,7 +66,7 @@ class Product {
 
     // Add the discount image if the item is discounted
     if (this.discount) {
-      str += `<img class="img-fluid discount-img" src="/images/3for2.png" width="120em">`;
+      str += `<img class="img-fluid discount-img" src="images/3for2.png" width="120em">`;
     } // if this...
 
     str += `      
@@ -89,7 +89,7 @@ class Product {
 
     // Add the discount image if the item is discounted
     if (this.discount) {
-      str += `<img class="img-fluid discount-img" src="/images/3for2.png" width=90em">`;
+      str += `<img class="img-fluid discount-img" src="images/3for2.png" width=90em">`;
     }
 
     str += `</div></a></div>`;

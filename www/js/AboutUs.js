@@ -15,7 +15,7 @@ class AboutUs {
      <section class="row justify-contents-center">
         <div class="col-12 col-md-4 mt-1">
           <div class="card mx-4">
-               <img src="/images/kloker.jpg" class="card-img-top" alt="...">
+               <img src="images/kloker.jpg" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title text-center">Sofia</h5>
                 <p class="card-text text-center">Hobby: Tänka...</p>
@@ -24,7 +24,7 @@ class AboutUs {
         </div>
         <div class="col-12 col-md-4 mt-1">
           <div class="card mx-4">
-            <img src="/images/grumpy.jpg" class="card-img-top" alt="...">
+            <img src="images/grumpy.jpg" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title text-center">Janis</h5>
               <p class="card-text text-center">Hobby:Getting shit done</p>
@@ -33,7 +33,7 @@ class AboutUs {
         </div>
         <div class="col-12 col-md-4 mt-1">
           <div class="card mx-4">
-            <img src="/images/trotter.jpg" class="card-img-top" alt="...">
+            <img src="images/trotter.jpg" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title text-center">Joacim</h5>
               <p class="card-text text-center">Hobby:Sova</p>

@@ -30,7 +30,7 @@
   --backround-pos: bottom center;
   --door-transform-origin: right;
   --door-transform-degree: 105deg;
-  --bg-image: url(/images/3for2.png);
+  --bg-image: url(images/3for2.png);
   --door-width: calc(150px * var(--size-factor));
   --door-height: calc(200px * var(--size-factor));
   left: calc(50% - calc(var(--door-width) / 2));
@@ -45,7 +45,7 @@
   --door-transform-degree: 105deg;
   --door-width: calc(150px * var(--size-factor));
   --door-height: calc(150px * var(--size-factor));
-  --bg-image: url(/images/whisky-kalender-scotch.png);
+  --bg-image: url(images/whisky-kalender-scotch.png);
   left: calc(calc(50% - calc(var(--door-width) / 2) + var(--offset)));
 }
 
@@ -56,7 +56,7 @@
   --backround-pos: center;
   --door-transform-origin: left;
   --door-transform-degree: -105deg;
-  --bg-image: url(/images/badbombcalender.jpg);
+  --bg-image: url(images/badbombcalender.jpg);
   --door-width: calc(200px * var(--size-factor));
   --door-height: calc(200px * var(--size-factor));
   left: calc(calc(50% - calc(var(--door-width) / 2) - var(--offset)));
@@ -159,7 +159,7 @@
 
 @media (max-width: 767px) {
   .fullscreen-bg {
-    background: url("/images/background_phone.JPG") center center / cover
+    background: url("images/background_phone.JPG") center center / cover
       no-repeat;
   }
 

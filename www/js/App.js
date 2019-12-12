@@ -66,7 +66,7 @@ class App {
   // await "pauses" until we have have a result
   async loadProducts() {
     // Load the products from JSON
-    let productsData = await $.getJSON("/json/products.json");
+    let productsData = await $.getJSON("json/products.json");
     // We will convert the raw JSON data to instances of Product
     // and store them in this.products
     this.products = [];

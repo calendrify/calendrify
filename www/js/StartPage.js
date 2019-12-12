@@ -16,11 +16,11 @@ class StartPage {
   render() {
     $("main").html(/*html*/ `
       <audio id="creaky-door">
-        <source src="/audio/346211__inspectorj__door-squeak-normal-e.mp3" type="audio/mpeg">
+        <source src="audio/346211__inspectorj__door-squeak-normal-e.mp3" type="audio/mpeg">
       </audio>
       <div class="fullscreen-bg">
         <video loop muted autoplay class="fullscreen-bg__video">
-          <source src="/images/background-video.webm" type="video/webm">
+          <source src="images/background-video.webm" type="video/webm">
         </video>
       </div>
       <section class="row">
