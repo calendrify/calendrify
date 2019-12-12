@@ -41,7 +41,7 @@ class StartPage {
       <section class='door2'>
         <div class='backDoor rounded-circle'>
           <a href='#produkter-whiskey' data-toggle="tooltip" title="Njut av en ny whiskey varje dag fram till jul">
-            <p class='text-center pt-4 clippy'>Till whiskeyälskaren</p>
+            <p class='text-center pt-5 clippy'>Till whiskeyälskaren</p>
           </a>
           <div class='door green-door d-flex align-items-center justify-content-center rounded-circle' data-toggle="tooltip" title="Klicka på mig för att öppna eller stänga!">
             <p class="pt-3">Present till far?</p>

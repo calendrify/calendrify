@@ -1,5 +1,7 @@
 class CartManager {
   constructor() {
+    CartManager.DEFAULT_CART_NAME = "standardkorg";
+
     this.carts = [];
     this.products = [];
     this.currentCart = 0;
@@ -183,7 +185,7 @@ class CartManager {
   load() {
     const list = store.multiCart;
     if (list == undefined) {
-      this.carts.push(new Cart("default", null));
+      this.carts.push(new Cart(CartManager.DEFAULT_CART_NAME, null));
     } else {
       this.carts = JSON.parse(list).map(
         item => new Cart(item.name, item.cartItems)

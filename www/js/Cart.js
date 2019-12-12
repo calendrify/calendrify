@@ -204,7 +204,8 @@ class Cart {
           </section>`;
       }
 
-      let emptyString = this.name === "default" ? "Töm" : "Radera";
+      let emptyString =
+        this.name === CartManager.DEFAULT_CART_NAME ? "Töm" : "Radera";
 
       str +=
         // <form id="cart-form">
