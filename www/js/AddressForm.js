@@ -46,6 +46,8 @@ class AddressForm {
   } // constructor
 
   render() {
+    let emptyString = this.cartManager.currentCart == 0 ? "Töm" : "Radera";
+
     $("main").html(/*html*/ `
       <section class="row">
         <div class="col text-center">
@@ -110,7 +112,7 @@ class AddressForm {
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="do-remove-cart">
               <label class="form-check-label" for="do-remove-cart">
-                Radera den här varukorgen ('<span class=font-italic>${this.cartManager.getCurrentCartName()}</span>') efter beställning
+                ${emptyString} den här varukorgen ('<span class=font-italic>${this.cartManager.getCurrentCartName()}</span>') efter beställning
               </label>
             </div>
           </div>
