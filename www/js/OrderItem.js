@@ -46,4 +46,4 @@ class OrderItem {
       </section>
       `;
   } // render
-} // class OrderIten
+} // class OrderItem

@@ -65,6 +65,7 @@ class Cart {
       } // btnMinus
 
       if (
+        e.target.className.includes("btnDelete") ||
         $(e.target)
           .parent()
           .hasClass("btnDelete")
@@ -78,7 +79,8 @@ class Cart {
       } // btnDelete
 
       if (
-        $(e.target)
+        e.target.className.includes("trash-button") ||
+          $(e.target)
           .parent()
           .hasClass("trash-button")
       ) {
@@ -254,7 +256,7 @@ class Cart {
           `<span class="cart-sum">Summa: </span><span class="cart-sum-right">${this.sweNumFormatter.format(
             this.cartManager.getTotalPrice(this.products).totalPrice
           )} kr</span>` +
-          '<p class="small my-0 shipping">Priset ink. moms, ex. frakt</p>' +
+          '<p class="small my-0 shipping">Priset inkl. moms, exkl. frakt</p>' +
           '<hr class="item-separator" /><li><a class="text-center" href="#cart"><button class="btn btn-primary w-100">Gå till varukorg</button></a></li>'
       );
 
